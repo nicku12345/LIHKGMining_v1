@@ -1,3 +1,4 @@
+from typing import List
 from mining.database.repositories.BaseRepository import BaseRepository
 from mining.database.models.User import User
 
@@ -17,6 +18,15 @@ class UsersRepository(BaseRepository):
         Return None otherwise.
         '''
         return self._db.session.query(User).filter_by(LIHKGUserId = LIHKGUserId).first()
+
+    def QueryUsersByLIHKGUserIds(self, LIHKGUserIds: List[int]):
+        LIHKGUserId_UserMap = dict()
+        users = self._db.session.query(User).filter(User.LIHKGUserId.in_(LIHKGUserIds)).all()
+
+        for u in users:
+            LIHKGUserId_UserMap[u.LIHKGUserId] = u
+
+        return LIHKGUserId_UserMap
 
     def AddUser(self, user: User):
         '''

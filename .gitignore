@@ -2,5 +2,5 @@
 env
 htmlcov
 .coverage
-data/sqlite/*
+data/sqlite/*.db
 __pycache__

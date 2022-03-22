@@ -1,5 +1,5 @@
 
-from mining.config._appsettings_template import Appsettings
+from mining.config.base_appsettings import Appsettings
 
 APPSETTINGS = Appsettings(
     SQLALCHEMY_DATABASE_URI="sqlite:///data/sqlite/db_test.db",

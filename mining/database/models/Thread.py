@@ -17,7 +17,7 @@ class Thread(db.Model):
     DislikeCount = db.Column(db.Integer, nullable=False)
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
-    RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False)
+    RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
 
     User = db.relationship("User")
     Messages = db.relationship("Message")
@@ -37,10 +37,10 @@ class Thread(db.Model):
         self.DislikeCount = thread.DislikeCount if thread.DislikeCount!=None else self.DislikeCount
         self.CreateDate = thread.CreateDate if thread.CreateDate!=None else self.CreateDate
         self.LastUpdate = thread.LastUpdate if thread.LastUpdate!=None else self.LastUpdate
-        self.RetrievedDate = thread.RetrievedDate if thread.RetrievedDate!=None else func.now()
 
     def __repr__(self):
         return f"<Thread(LIHKGThreadId={self.LIHKGThreadId}, " \
+               f"Title={self.Title}, " \
                f"LikeCount={self.LikeCount}, " \
                f"DislikeCount={self.DislikeCount}, " \
                f"MessagesCount={len(self.Messages) if self.Messages!=None else 0}, " \

@@ -14,7 +14,7 @@ class Message(db.Model):
     MessageNumber = db.Column(db.Integer, nullable=False)
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
-    RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False)
+    RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
 
     User = db.relation("User")
 
@@ -31,7 +31,6 @@ class Message(db.Model):
         self.MessageNumber = message.MessageNumber if message.MessageNumber!=None else self.MessageNumber
         self.CreateDate = message.CreateDate if message.CreateDate!=None else self.CreateDate
         self.LastUpdate = message.LastUpdate if message.LastUpdate!=None else self.LastUpdate
-        self.RetrievedDate = message.RetrievedDate if message.RetrievedDate!=None else func.now()
 
     def Serialize(self):
         return {

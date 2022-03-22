@@ -1,6 +1,9 @@
 from flask import Blueprint
 
 class HelloWorldController:
+    '''
+    This controller is for testing purpose
+    '''
 
     blueprint = Blueprint("/", __name__)
 

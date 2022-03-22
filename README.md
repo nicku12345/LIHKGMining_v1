@@ -8,7 +8,7 @@ Under development...
 source env/Scripts/activate
 export FLASK_APP=mining
 export FLASK_ENV=development
-flask run
+flask run --no-reload
 ```
 
 
@@ -24,5 +24,5 @@ with the ```coverage``` package:
 ```shell
 coverage run --source=. -m unittest discover
 coverage report -m
-coverage html
+coverage html --omit=./mining/tests/*
 ```

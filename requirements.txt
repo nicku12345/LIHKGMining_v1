@@ -1,0 +1,11 @@
+pip~=21.1.1
+setuptools~=56.0.0
+SQLAlchemy~=1.4.32
+playwright~=1.19.1
+pyee~=8.1.0
+greenlet~=1.1.2
+websockets~=10.1
+flask
+Flask-SQLAlchemy
+flask-rq2
+flask_testing

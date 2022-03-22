@@ -19,3 +19,4 @@ from mining.tests.repositories_tests.ThreadsRepositoryTests import *
 MANAGERS TESTS
 '''
 from mining.tests.managers_tests.UsersManagerTests import *
+from mining.tests.managers_tests.ThreadsManagerTests import *

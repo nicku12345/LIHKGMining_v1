@@ -9,7 +9,7 @@ class LIHKGMiningApp:
 
         if ENV == "DEV":
             from mining.config.appsettings_dev import APPSETTINGS
-            app.run(debug=True, use_reloader=True)
+            app.run()
         elif ENV == "TEST":
             from mining.config.appsettings_test import APPSETTINGS
         elif ENV == "PROD":
