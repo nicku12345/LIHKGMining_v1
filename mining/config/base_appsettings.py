@@ -1,20 +1,24 @@
 
 from flask import Flask
 import logging
+from logging.handlers import TimedRotatingFileHandler
 import coloredlogs
+from dataclasses import dataclass
 
+@dataclass
 class Appsettings:
 
-    def __init__(self, SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, IS_TEST=False):
-        self.SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
-        self.SQLALCHEMY_TRACK_MODIFICATIONS = SQLALCHEMY_TRACK_MODIFICATIONS
-        self.IS_TEST = IS_TEST
+    SQLALCHEMY_DATABASE_URI         : str
+    SQLALCHEMY_TRACK_MODIFICATIONS  : bool
+    LOG_PATH                        : str = "./mining/data/logs/flask.log"
+    IS_TEST                         : bool = False
+    ENVIRONMENT                     : str = "DEV"
 
     def ApplySettings(self, app: Flask):
         '''
         Apply the appsettings_env.py to the Flask app instance.
-
         '''
+
         '''
         BASE SETTINGS and SQLALCHEMY SETTINGS        
         '''
@@ -35,5 +39,5 @@ class Appsettings:
 
         logging.basicConfig(
             format='[%(asctime)s] %(levelname)s: \t%(message)s',
-            level=logging.DEBUG
+            level=logging.DEBUG,
         )

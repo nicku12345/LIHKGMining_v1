@@ -1,13 +1,16 @@
+from dataclasses import dataclass
 from mining.util.Exceptions import *
 
-
+@dataclass
 class FullFetchThreadRequest:
-
-    def __init__(self, LIHKGThreadId: int, page: int = 1):
-        self.LIHKGThreadId = LIHKGThreadId
-        self.page = page
+    LIHKGThreadId   : int
+    page            : int = 1
 
     def IsValid(self):
+        '''
+        Check whether the types of the attributes are as desired.
+        '''
+
         if not isinstance(self.LIHKGThreadId, int):
             return False
         if not isinstance(self.page, int):
@@ -27,13 +30,16 @@ class FullFetchThreadRequest:
         return req
 
 
+@dataclass()
 class FetchOneThreadPageRequest:
-
-    def __init__(self, LIHKGThreadId: int, page: int):
-        self.LIHKGThreadId = LIHKGThreadId
-        self.page = page
+    LIHKGThreadId   : int
+    page            : int
 
     def IsValid(self):
+        '''
+        Check whether the types of the attributes are as desired.
+        '''
+
         if not isinstance(self.LIHKGThreadId, int):
             return False
         if not isinstance(self.page, int):

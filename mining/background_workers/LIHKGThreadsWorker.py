@@ -1,7 +1,6 @@
 import time
 from mining.background_workers.BaseWorker import BaseWorker
 from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
-
 from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
 
 class LIHKGThreadsWorker(BaseWorker):
@@ -10,23 +9,46 @@ class LIHKGThreadsWorker(BaseWorker):
         super().__init__(*args, **kwargs)
 
     def Work(self):
+        '''
+        The main functionality of this worker.
+
+        It periodically pools jobs from the global LIHKGThreadsWORKQUEUE queue and
+        handle the job.
+
+        This work should share the same memory with the main-thread of the program so
+        that it can access the current app context.
+        '''
 
         while True:
-            self._logger.info("LIHKGThreads worker working...")
             if not self._queue.IsEmpty():
-                LIHKGThreadjob = self._queue.Get()
-                LIHKGThreadId, page, isFullFetch = LIHKGThreadjob
+                self._logger.debug("Jobs polled LIHKGThreads worker...")
 
-                self._logger.info(f"LIHKGThreads worker received job {LIHKGThreadId}")
+                LIHKGThreadsjob = self._queue.Get()
+                self._logger.debug(f"LIHKGThreads worker received job {LIHKGThreadsjob}")
+
+                LIHKGThreadId = LIHKGThreadsjob.LIHKGThreadId
+                page = LIHKGThreadsjob.page
+                isFullFetch = LIHKGThreadsjob.isFullFetch
+
                 with self._app.app_context():
 
                     lihkgThreadsManager = LIHKGThreadsManager()
 
+                    # full fetch -> fetch all pages of the thread
                     if isFullFetch:
                         lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
+
+                    # else -> fetch only one page
                     else:
                         lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
 
+                self._logger.debug(f"Job {LIHKGThreadsjob} finished")
+
             time.sleep(self._sleep_time)
 
+'''
+Singleton pattern of the background worker.
+
+For now let's just have one worker
+'''
 lihkgThreadsWorker = LIHKGThreadsWorker(LIHKGThreadsWORKQUEUE)
