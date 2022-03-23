@@ -20,11 +20,13 @@ class LIHKGMiningApp:
         APPSETTINGS.ApplySettings(app)
 
         from mining.database import DatabaseInitApp
-        from mining.controllers import ControllersInitApp
+        from mining.background_workers import BackgroundWorkersInitApp
         from mining.managers import ManagersInitApp
+        from mining.controllers import ControllersInitApp
 
         DatabaseInitApp(app)
         ControllersInitApp(app)
         ManagersInitApp(app)
+        BackgroundWorkersInitApp(app)
 
         return app

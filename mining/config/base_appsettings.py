@@ -1,6 +1,7 @@
 
 from flask import Flask
 import logging
+import coloredlogs
 
 class Appsettings:
 
@@ -28,6 +29,7 @@ class Appsettings:
         Get rid of the default logger and apply customized logging format.
         See https://stackoverflow.com/questions/14888799/disable-console-messages-in-flask-server
         '''
+        coloredlogs.install()
         app.logger.handlers.clear()
         logging.getLogger("werkzeug").handlers.clear()
 

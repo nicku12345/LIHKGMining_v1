@@ -33,7 +33,7 @@ class PlaywrightHelper(BaseHelper):
                 response = res.json()
 
         page.on("response", lambda res: UpdateResponseIfIsTargetApi(res))
-        page.goto(website_url)
+        page.goto(website_url, timeout=0, wait_until="networkidle")
 
         if response == None:
             self._logger.error(f"No xhr or fetch response found. Website={website_url}. Target_api prefix={target_api_uri_prefix}")
