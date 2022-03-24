@@ -1,5 +1,5 @@
 [![Pylint](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/pylint.yml) 
-[![Unit Tests](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/python-app.yml/badge.svg)](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/python-app.yml)
+[![Unit Tests](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/python-app.yml)
 
 # LIHKG Mining web application
 
