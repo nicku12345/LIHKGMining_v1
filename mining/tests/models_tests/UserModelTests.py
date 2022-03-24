@@ -47,3 +47,7 @@ class UserUpdate_IfOriginalUserIsOutdated_Update(BaseTestCase):
         self.assertTrue(current_user.Gender == "F")
         self.assertTrue(current_user.CreateDate == 4)
         self.assertTrue(current_user.LastUpdate == 35)
+
+class TestGithubActions(BaseTestCase):
+    def test(self):
+        self.assertTrue(False)
