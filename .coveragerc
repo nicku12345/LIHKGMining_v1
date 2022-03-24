@@ -1,0 +1,9 @@
+[report]
+omit =
+        ./mining/tests/*
+        */mining/config/appsettings*
+
+[html]
+omit =
+        ./mining/tests/*
+        */mining/config/appsettings*

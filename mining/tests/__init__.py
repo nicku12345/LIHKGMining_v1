@@ -20,3 +20,8 @@ MANAGERS TESTS
 '''
 from mining.tests.managers_tests.UsersManagerTests import *
 from mining.tests.managers_tests.ThreadsManagerTests import *
+
+'''
+HELPERS TESTS
+'''
+from mining.tests.managers_tests.helpers_tests.LIHKGThreadsHelperTests import *
