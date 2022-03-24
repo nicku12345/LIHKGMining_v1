@@ -1,10 +1,18 @@
-
+"""
+The LIHKGMiningApp class
+"""
 from flask import Flask
 
 class LIHKGMiningApp:
+    """
+    The LIHKGMiningApp class
+    """
 
     @classmethod
     def CreateApp(cls, ENV="DEV"):
+        '''
+        Creates the main app based on the given env.
+        '''
         app = Flask(__name__)
 
         if ENV == "DEV":
@@ -15,7 +23,7 @@ class LIHKGMiningApp:
         elif ENV == "PROD":
             from mining.config.appsettings_prod import APPSETTINGS
         else:
-            raise(f"{ENV} is not a valid environment")
+            raise f"{ENV} is not a valid environment" from None
 
         APPSETTINGS.ApplySettings(app)
 

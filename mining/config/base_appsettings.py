@@ -1,12 +1,16 @@
-
-from flask import Flask
+"""
+The appsettings class. Stores configurations for the application.
+"""
 import logging
-from logging.handlers import TimedRotatingFileHandler
 import coloredlogs
+from flask import Flask
 from dataclasses import dataclass
 
 @dataclass
 class Appsettings:
+    """
+    The appsettings class. Stores configurations for the application.
+    """
 
     SQLALCHEMY_DATABASE_URI         : str
     SQLALCHEMY_TRACK_MODIFICATIONS  : bool
@@ -20,7 +24,7 @@ class Appsettings:
         '''
 
         '''
-        BASE SETTINGS and SQLALCHEMY SETTINGS        
+        BASE SETTINGS and SQLALCHEMY SETTINGS
         '''
         app.config["SQLALCHEMY_DATABASE_URI"] = self.SQLALCHEMY_DATABASE_URI
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.SQLALCHEMY_TRACK_MODIFICATIONS
@@ -29,7 +33,7 @@ class Appsettings:
 
         '''
         LOGGING SETTINGS
-        
+
         Get rid of the default logger and apply customized logging format.
         See https://stackoverflow.com/questions/14888799/disable-console-messages-in-flask-server
         '''

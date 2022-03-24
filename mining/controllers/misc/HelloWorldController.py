@@ -1,3 +1,6 @@
+"""
+Controller for testing purpose
+"""
 from flask import Blueprint
 
 class HelloWorldController:
@@ -10,4 +13,7 @@ class HelloWorldController:
     @staticmethod
     @blueprint.route("/")
     def HelloWorld():
+        '''
+        A testing route for checking whether server is live
+        '''
         return "Hello world!"

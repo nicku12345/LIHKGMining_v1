@@ -1,3 +1,6 @@
+"""
+Concete manager class for LIHKG threads related functionalities.
+"""
 import time
 import random
 from mining.managers.BaseManager import BaseManager
@@ -8,6 +11,9 @@ from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
 from mining.background_workers.jobs.LIHKGThreadsJob import LIHKGThreadsJob
 
 class LIHKGThreadsManager(BaseManager):
+    """
+    Concrete manager class for LIHKG threads related functionalities.
+    """
 
     def __init__(self):
         super().__init__()
@@ -15,7 +21,8 @@ class LIHKGThreadsManager(BaseManager):
         self._lihkgThreadsHelper = LIHKGThreadsHelper()
         self._playwrightHelper = PlaywrightHelper()
 
-        # Used for fetching threads. The fetch will retry on failure, and stop once reaching this threshold
+        # Used for fetching threads. The fetch will retry on failure,
+        # and stop once reaching this threshold
         self._max_failure_cnt = 3
 
         # Used for fetching threads. Introduces a sleep between page fetches with
@@ -23,7 +30,11 @@ class LIHKGThreadsManager(BaseManager):
         # Its purpose is to create a more dynamic and less machinery behavior.
         self._sleep_time = 3
 
-    def FullFetchOneThreadByLIHKGThreadIdWithRetry(self, LIHKGThreadId: int, page_start: int = 1, page_end: int = 40):
+    def FullFetchOneThreadByLIHKGThreadIdWithRetry(
+            self,
+            LIHKGThreadId: int,
+            page_start: int = 1,
+            page_end: int = 40):
         '''
         Performs a full fetch for one LIHKG thread with retrials.
 
@@ -32,7 +43,10 @@ class LIHKGThreadsManager(BaseManager):
         :param page_end: The number of page to stop fetching. Default is 40.
         '''
         for page in range(page_start, page_end + 1):
-            success, num_msgs_fetched = self.FetchOneThreadPageByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
+
+            success, num_msgs_fetched \
+                = self.FetchOneThreadPageByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
+
             if success and num_msgs_fetched == 0:
                 break
             time.sleep(random.uniform(0, self._sleep_time))
@@ -48,16 +62,20 @@ class LIHKGThreadsManager(BaseManager):
         failure_cnt = 0
         while True:
             try:
-                success, num_msgs_fetched = self.FetchOneThreadPageByLIHKGThreadId(LIHKGThreadId, page)
+                success, num_msgs_fetched = \
+                    self.FetchOneThreadPageByLIHKGThreadId(LIHKGThreadId, page)
+
                 if success:
                     return success, num_msgs_fetched
+
             except Exception as e:
-                self._logger.warn(f"Encountered exception: {e}")
+                self._logger.warning(f"Encountered exception: {e}")
                 return False, 0
 
             failure_cnt += 1
             if failure_cnt >= self._max_failure_cnt:
-                self._logger.info(f"Putting thread: {LIHKGThreadId}, page: {page} to queue for latter re-processing.")
+                self._logger.info(f"Putting thread: {LIHKGThreadId}, "
+                                  f"page: {page} to queue for latter re-processing.")
 
                 job = LIHKGThreadsJob(
                     LIHKGThreadId=LIHKGThreadId,
@@ -78,18 +96,20 @@ class LIHKGThreadsManager(BaseManager):
         :param page: The number of page to fetch.
         :return: (success: bool, number_messages_fetched: int)
         '''
-        website_url, target_api_url_pref = self._lihkgThreadsHelper.GetFetchThreadWebsiteAndApiUrlPrefix(LIHKGThreadId, page)
+        website_url, target_api_url_pref = \
+            self._lihkgThreadsHelper.GetFetchThreadWebsiteAndApiUrlPrefix(LIHKGThreadId, page)
 
         self._logger.info(f"Received fetch on LIHKGThreadId: {LIHKGThreadId}, Page: {page}")
         self._logger.debug(f"Generated website url: {website_url}")
         self._logger.debug(f"Generated API url prefix: {target_api_url_pref}")
         self._logger.info("Now fetching...")
-        
-        lihkg_thread = self._playwrightHelper.FetchTargetApiByVisitingWebsite(website_url, target_api_url_pref)
+
+        lihkg_thread = \
+            self._playwrightHelper.FetchTargetApiByVisitingWebsite(website_url, target_api_url_pref)
         if not self._lihkgThreadsHelper.IsResponseSuccess(lihkg_thread):
-            self._logger.warn(f"Failed fetch on LIHKGThreadId: {LIHKGThreadId}, Page: {page}")
+            self._logger.warning(f"Failed fetch on LIHKGThreadId: {LIHKGThreadId}, Page: {page}")
             return False, 0
-        
+
         thread = self._lihkgThreadsHelper.ConvertToThread(lihkg_thread)
         user = self._lihkgThreadsHelper.ConvertToUser(lihkg_thread)
         messages = self._lihkgThreadsHelper.ConvertToMessages(lihkg_thread)
@@ -98,7 +118,7 @@ class LIHKGThreadsManager(BaseManager):
         self._logger.debug(f"Fetched thread: {thread}")
         self._logger.debug(f"Fetched user: {user}")
         self._logger.debug(f"Fetched messages count: {len(messages)}")
-        self._logger.info(f"Persisting the found thread to database")
+        self._logger.info("Persisting the found thread to database")
 
         self._threadsManager.AddThread(thread, user, messages, users)
 

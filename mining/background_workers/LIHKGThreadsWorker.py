@@ -1,12 +1,15 @@
+"""
+Concrete worker class for LIHKG threads related functionalities.
+"""
 import time
 from mining.background_workers.BaseWorker import BaseWorker
 from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
 from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
 
 class LIHKGThreadsWorker(BaseWorker):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    """
+    Concrete worker class for LIHKG threads related functionalities.
+    """
 
     def Work(self):
         '''
@@ -36,11 +39,17 @@ class LIHKGThreadsWorker(BaseWorker):
 
                     # full fetch -> fetch all pages of the thread
                     if isFullFetch:
-                        lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
+                        lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(
+                            LIHKGThreadId,
+                            page
+                        )
 
                     # else -> fetch only one page
                     else:
-                        lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(LIHKGThreadId, page)
+                        lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(
+                            LIHKGThreadId,
+                            page
+                        )
 
                 self._logger.debug(f"Job {LIHKGThreadsjob} finished")
 

@@ -1,7 +1,13 @@
+"""
+Concrete repository for thread entities related functionalities.
+"""
 from mining.database.repositories.BaseRepository import BaseRepository
 from mining.database.models.Thread import Thread
 
 class ThreadsRepository(BaseRepository):
+    """
+    Concrete repository for thread entities related functionalities.
+    """
 
     def QueryAllThreads(self):
         '''

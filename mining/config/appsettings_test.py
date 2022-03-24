@@ -1,4 +1,6 @@
-
+"""
+The appsettings for test env
+"""
 from mining.config.base_appsettings import Appsettings
 
 APPSETTINGS = Appsettings(
