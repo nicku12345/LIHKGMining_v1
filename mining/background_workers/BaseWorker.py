@@ -43,6 +43,6 @@ class BaseWorker:
                                "Please set up the app in the BackgroundWorkersInitApp function")
             return
 
-        self._logger.info("Waking up worker...")
+        self._logger.debug("Waking up worker...")
         t = threading.Thread(target=self.Work, daemon=True)
         t.start()
