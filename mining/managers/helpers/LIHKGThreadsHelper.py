@@ -58,7 +58,7 @@ class LIHKGThreadsHelper(BaseHelper):
         '''
         Converts the fetched response to a list of messages.
         '''
-        messages = list()
+        messages = []
         for lihkg_msg in lihkg_thread["response"]["item_data"]:
             msg = Message()
 

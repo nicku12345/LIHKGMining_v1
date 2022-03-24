@@ -2,6 +2,7 @@
 Do necessary init for the database.
 """
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Index
 
 db = SQLAlchemy()
 
