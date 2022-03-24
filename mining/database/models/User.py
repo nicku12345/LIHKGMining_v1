@@ -1,8 +1,14 @@
+"""
+Entity model of a user.
+"""
 from __future__ import annotations
-from mining.database import db
 from sqlalchemy.sql import func
+from mining.database import db
 
 class User(db.Model):
+    """
+    Entity model of a user.
+    """
     __tablename__ = "Users"
 
     UserId = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -14,6 +20,9 @@ class User(db.Model):
     RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
 
     def __repr__(self):
+        '''
+        Returns a representation of self.
+        '''
         return f"<User(LIHKGUserId={self.LIHKGUserId}, " \
                f"Nickname={self.Nickname}, " \
                f"Gender={self.Gender}, " \
@@ -22,16 +31,22 @@ class User(db.Model):
                f"RetrievedDate={self.RetrievedDate})>"
 
     def Update(self, user: User):
-        if self.LastUpdate == None or self.LastUpdate > user.LastUpdate:
+        '''
+        Updates self based on the given user.
+        '''
+        if self.LastUpdate is None or self.LastUpdate > user.LastUpdate:
             return
 
-        self.LIHKGUserId = user.LIHKGUserId if user.LIHKGUserId!=None else self.LIHKGUserId
-        self.Nickname = user.Nickname if user.Nickname!=None else self.Nickname
-        self.Gender = user.Gender if user.Gender!=None else self.Gender
-        self.CreateDate = user.CreateDate if user.CreateDate!=None else self.CreateDate
-        self.LastUpdate = user.LastUpdate if user.LastUpdate!=None else self.LastUpdate
+        self.LIHKGUserId = user.LIHKGUserId if user.LIHKGUserId is not None else self.LIHKGUserId
+        self.Nickname = user.Nickname if user.Nickname is not None else self.Nickname
+        self.Gender = user.Gender if user.Gender is not None else self.Gender
+        self.CreateDate = user.CreateDate if user.CreateDate is not None else self.CreateDate
+        self.LastUpdate = user.LastUpdate if user.LastUpdate is not None else self.LastUpdate
 
     def Serialize(self):
+        '''
+        Returns a serialized representation of self.
+        '''
         return {
             "LIHKGUserId": self.LIHKGUserId,
             "Nickname": self.Nickname,
@@ -41,6 +56,9 @@ class User(db.Model):
         }
 
     def Copy(self):
+        '''
+        Creates a copy of self.
+        '''
         clone = User(LastUpdate=self.LastUpdate - 1)
         clone.Update(self)
         return clone

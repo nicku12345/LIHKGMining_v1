@@ -1,3 +1,6 @@
+"""
+Concrete class of describing a LIHKG thread job.
+"""
 from dataclasses import dataclass
 from datetime import datetime
 

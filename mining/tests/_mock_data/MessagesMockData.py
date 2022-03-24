@@ -1,3 +1,6 @@
+"""
+Mock data for messages.
+"""
 from mining.database.models.Message import Message
 
 mock_messages = [

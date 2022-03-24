@@ -1,8 +1,14 @@
+"""
+Concrete repository for user related functionalities.
+"""
 from typing import List
 from mining.database.repositories.BaseRepository import BaseRepository
 from mining.database.models.User import User
 
 class UsersRepository(BaseRepository):
+    """
+    Concrete repository for user related functionalities.
+    """
 
     def QueryAllUsers(self):
         '''
@@ -20,7 +26,12 @@ class UsersRepository(BaseRepository):
         return self._db.session.query(User).filter_by(LIHKGUserId = LIHKGUserId).first()
 
     def QueryUsersByLIHKGUserIds(self, LIHKGUserIds: List[int]):
-        LIHKGUserId_UserMap = dict()
+        '''
+        Query users by a list of LIHKGUserIds.
+
+        Returns a dictionary of storing (LIHKGUserId, user) key value pair.
+        '''
+        LIHKGUserId_UserMap = {}
         users = self._db.session.query(User).filter(User.LIHKGUserId.in_(LIHKGUserIds)).all()
 
         for u in users:

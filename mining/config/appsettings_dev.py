@@ -1,4 +1,6 @@
-
+"""
+The appsettings of dev env.
+"""
 from mining.config.base_appsettings import Appsettings
 
 APPSETTINGS = Appsettings(

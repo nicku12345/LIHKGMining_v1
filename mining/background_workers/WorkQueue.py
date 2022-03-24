@@ -1,9 +1,15 @@
+"""
+Work queue class for background LIHKG thread workers.
+"""
 import queue
 from datetime import datetime
 import logging
 from mining.background_workers.jobs import LIHKGThreadsJob
 
 class LIHKGThreadsWorkQueue:
+    """
+    Work queue class for background LIHKG thread workers.
+    """
 
     def __init__(self):
         self._queue = queue.Queue()
@@ -48,7 +54,7 @@ class LIHKGThreadsWorkQueue:
             first_job = self._queue.queue[0]
             if (now - first_job.CreateTime).total_seconds() >= 12 * 60 * 60:
                 first_job = self._queue.get()
-                self._logger.warn(f"Discarding job {first_job} for being too old.")
+                self._logger.warning(f"Discarding job {first_job} for being too old.")
             else:
                 break
 

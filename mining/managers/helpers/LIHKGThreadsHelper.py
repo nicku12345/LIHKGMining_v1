@@ -1,3 +1,6 @@
+"""
+Concrete helper class for LIHKG threads related functionalities.
+"""
 from typing import Dict
 from mining.database.models.User import User
 from mining.database.models.Thread import Thread
@@ -6,25 +9,41 @@ from mining.managers.helpers.BaseHelper import BaseHelper
 
 
 class LIHKGThreadsHelper(BaseHelper):
-
-    def __init__(self):
-        super().__init__()
+    """
+    Concrete helper class for LIHKG threads related functionalities.
+    """
 
     def GetFetchThreadWebsiteAndApiUrlPrefix(self, LIHKGThreadId: int, page: int):
+        '''
+        Returns the website url and target api to fetch for
+        a given LIHKG thread id and page number.
+        '''
         website_url = f"https://lihkg.com/thread/{LIHKGThreadId}/page/{page}"
         target_api_url_pref = f"https://lihkg.com/api_v2/thread/{LIHKGThreadId}/page/{page}"
         return website_url, target_api_url_pref
 
     def IsResponseSuccess(self, lihkg_thread: Dict):
-        if lihkg_thread == None:
+        '''
+        Checks whether the fetched data contains success in its response
+        '''
+        if lihkg_thread is None:
             return False
 
         return lihkg_thread.get("success") == 1
 
     def HasEmptyMessages(self, lihkg_thread: Dict):
+        '''
+        Checks whether the fetched thread page contains any messages.
+
+        Used to determine whether the page is the last page.
+        '''
         return len(lihkg_thread["response"]["item_data"]) == 0
 
     def ConvertToUser(self, lihkg_thread: Dict):
+        '''
+        Converts the fetched response to user,
+        the author of the thread.
+        '''
         user = User()
 
         user.LIHKGUserId    = int(lihkg_thread["response"]["user"]["user_id"])
@@ -36,6 +55,9 @@ class LIHKGThreadsHelper(BaseHelper):
         return user
 
     def ConvertToMessages(self, lihkg_thread: Dict):
+        '''
+        Converts the fetched response to a list of messages.
+        '''
         messages = list()
         for lihkg_msg in lihkg_thread["response"]["item_data"]:
             msg = Message()
@@ -52,7 +74,10 @@ class LIHKGThreadsHelper(BaseHelper):
         return messages
 
     def ConvertToUsers(self, lihkg_thread: Dict):
-        users = list()
+        '''
+        Converts the fetched response to a list of users matching the messages.
+        '''
+        users = []
         for lihkg_msg in lihkg_thread["response"]["item_data"]:
             user = User()
 
@@ -67,6 +92,9 @@ class LIHKGThreadsHelper(BaseHelper):
         return users
 
     def ConvertToThread(self, lihkg_thread: Dict):
+        '''
+        Converts the fetched response to a thread.
+        '''
         thread = Thread()
 
         thread.LIHKGThreadId       = int(lihkg_thread["response"]["thread_id"])
@@ -81,6 +109,3 @@ class LIHKGThreadsHelper(BaseHelper):
         thread.LastUpdate          = int(lihkg_thread["response"]["last_reply_time"])
 
         return thread
-
-
-

@@ -1,8 +1,14 @@
+"""
+Do necessary init for the database.
+"""
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 def DatabaseInitApp(app, db=db):
+    """
+    Do necessary init for the database.
+    """
     db.init_app(app)
 
     from mining.database.models.User import User

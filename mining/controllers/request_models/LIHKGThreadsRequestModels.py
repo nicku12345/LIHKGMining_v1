@@ -1,8 +1,14 @@
+"""
+Request models for LIHKG threads controller.
+"""
 from dataclasses import dataclass
-from mining.util.Exceptions import *
+from mining.util.Exceptions import BadRequest
 
 @dataclass
 class FullFetchThreadRequest:
+    """
+    Request model for full fetch thread.
+    """
     LIHKGThreadId   : int
     page            : int = 1
 
@@ -19,19 +25,26 @@ class FullFetchThreadRequest:
 
     @classmethod
     def ConvertFromRequestBody(cls, body):
+        '''
+        Maps the request body into the request model.
+        '''
+
         try:
             req = FullFetchThreadRequest(**body)
         except Exception as e:
-            raise BadRequest(f"Mapping to FullFetchThreadRequest failed. Error: {e}")
+            raise BadRequest(f"Mapping to FullFetchThreadRequest failed. Error: {e}") from e
 
         if not req.IsValid():
-            raise BadRequest(f"Some required fields are None.")
+            raise BadRequest("Some required fields are None.") from None
 
         return req
 
 
 @dataclass()
 class FetchOneThreadPageRequest:
+    """
+    Request model for fetch one thread page.
+    """
     LIHKGThreadId   : int
     page            : int
 
@@ -47,13 +60,16 @@ class FetchOneThreadPageRequest:
         return True
 
     @classmethod
-    def ConvertFromRequestBody(self, body):
+    def ConvertFromRequestBody(cls, body):
+        '''
+        Maps the request body into a request model.
+        '''
         try:
             req = FetchOneThreadPageRequest(**body)
         except Exception as e:
-            raise BadRequest(f"Mapping to FetchOneThreadPageRequest failed. Error: {e}")
+            raise BadRequest(f"Mapping to FetchOneThreadPageRequest failed. Error: {e}") from e
 
         if not req.IsValid():
-            raise BadRequest(f"Some required fields are None.")
+            raise BadRequest("Some required fields are None.") from None
 
         return req

@@ -1,3 +1,6 @@
+"""
+Controller for LIHKG threads related functionalities
+"""
 from flask import Blueprint, request
 from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
 from mining.controllers.request_models.LIHKGThreadsRequestModels import *
@@ -7,6 +10,9 @@ from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
 
 
 class LIHKGThreadsController:
+    """
+    Controller for LIHKG threads related functionalities
+    """
 
     blueprint = Blueprint("lihkgthreads", __name__, url_prefix="/api/lihkgthreads")
 
@@ -28,8 +34,12 @@ class LIHKGThreadsController:
         '''
         body = request.json
         requestModel = FetchOneThreadPageRequest.ConvertFromRequestBody(body)
+
         lihkgThreadsManager = LIHKGThreadsManager()
-        lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadId(requestModel.LIHKGThreadId, requestModel.page)
+        lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadId(
+            requestModel.LIHKGThreadId,
+            requestModel.page
+        )
         return "ok"
 
     @staticmethod
@@ -82,7 +92,10 @@ class LIHKGThreadsController:
         requestModel = FullFetchThreadRequest.ConvertFromRequestBody(body)
 
         lihkgThreadsManager = LIHKGThreadsManager()
-        lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(requestModel.LIHKGThreadId, requestModel.page)
+        lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(
+            requestModel.LIHKGThreadId,
+            requestModel.page
+        )
 
         return "ok"
 
