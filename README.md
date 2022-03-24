@@ -27,5 +27,5 @@ with the ```coverage``` package:
 ```shell
 coverage run --source=. -m unittest discover
 coverage report -m
-coverage html --omit=./mining/tests/*
+coverage html
 ```
