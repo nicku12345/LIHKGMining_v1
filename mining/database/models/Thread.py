@@ -3,6 +3,7 @@ Entity model of a thread.
 """
 from __future__ import annotations
 from sqlalchemy.sql import func
+from sqlalchemy import Index
 from mining.database import db
 
 class Thread(db.Model):
@@ -11,7 +12,7 @@ class Thread(db.Model):
     """
     __tablename__ = "Threads"
 
-    ThreadId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ThreadId = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     User_UserId = db.Column(db.Integer, db.ForeignKey("Users.UserId"), nullable=False)
     LIHKGThreadId = db.Column(db.Integer, unique=True, nullable=False)
     CategoryId = db.Column(db.Integer, nullable=False)
@@ -24,6 +25,8 @@ class Thread(db.Model):
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
     RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
+
+    __table_args__ = (Index("Threads_UserUserId_LIHKGThreadId", "User_UserId", "LIHKGThreadId"),)
 
     User = db.relationship("User")
     Messages = db.relationship("Message")
@@ -70,7 +73,7 @@ class Thread(db.Model):
             "NumberOfUniReplies": self.NumberOfUniReplies,
             "LikeCount": self.LikeCount,
             "DislikeCount": self.DislikeCount,
-            "User": self.User.Serialize() if self.User!=None else None,
+            "User": self.User.Serialize() if self.User is not None else None,
             "Messages": [msg.Serialize() for msg in self.Messages if msg is not None],
             "CreateDate": self.CreateDate,
             "LastUpdate": self.LastUpdate,

@@ -37,11 +37,21 @@ class Appsettings:
         Get rid of the default logger and apply customized logging format.
         See https://stackoverflow.com/questions/14888799/disable-console-messages-in-flask-server
         '''
-        coloredlogs.install()
-        app.logger.handlers.clear()
-        logging.getLogger("werkzeug").handlers.clear()
 
-        logging.basicConfig(
-            format='[%(asctime)s] %(levelname)s: \t%(message)s',
-            level=logging.DEBUG,
-        )
+        app.logger.handlers.clear()
+        werkzeug_logger = logging.getLogger("werkzeug")
+        werkzeug_logger.handlers.clear()
+
+        flask_app_logger = logging.getLogger("flask.app")
+        flask_app_logger.setLevel(logging.DEBUG)
+
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(logging.DEBUG)
+        flask_app_formatter = logging.Formatter('[%(asctime)s] %(levelname)s: \t%(message)s')
+
+        stream_handler.setFormatter(flask_app_formatter)
+        flask_app_logger.addHandler(stream_handler)
+        werkzeug_logger.addHandler(stream_handler)
+
+        coloredlogs.install(logger=flask_app_logger, level=logging.DEBUG)
+        coloredlogs.install(logger=werkzeug_logger, level=logging.DEBUG)
