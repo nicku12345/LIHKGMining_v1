@@ -3,6 +3,7 @@ Entity model of a user.
 """
 from __future__ import annotations
 from sqlalchemy.sql import func
+from sqlalchemy import Index
 from mining.database import db
 
 class User(db.Model):
@@ -11,13 +12,15 @@ class User(db.Model):
     """
     __tablename__ = "Users"
 
-    UserId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    UserId = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     LIHKGUserId = db.Column(db.Integer, unique=True, nullable=False)
     Nickname = db.Column(db.String, nullable=False)
-    Gender = db.Column(db.String, nullable=False)
+    Gender = db.Column(db.String(1), nullable=False)
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
     RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
+
+    __table_args__ = (Index("Users_UserId_LIHKGUserId", "UserId", "LIHKGUserId"),)
 
     def __repr__(self):
         '''

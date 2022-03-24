@@ -3,6 +3,7 @@ Entity model: Message
 """
 from __future__ import annotations
 from sqlalchemy.sql import func
+from sqlalchemy import Index
 from mining.database import db
 
 class Message(db.Model):
@@ -11,7 +12,7 @@ class Message(db.Model):
     """
     __tablename__ = "Messages"
 
-    MessageId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    MessageId = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     Thread_ThreadId = db.Column(db.Integer, db.ForeignKey("Threads.ThreadId"), nullable=False)
     User_UserId = db.Column(db.Integer, db.ForeignKey("Users.UserId"), nullable=False)
     LikeCount = db.Column(db.Integer, nullable=False)
@@ -24,6 +25,8 @@ class Message(db.Model):
         db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
 
     User = db.relation("User")
+
+    __table_args__ = (Index("Messages_UserUserId_ThreadThreadId", "User_UserId", "Thread_ThreadId"),)
 
     def __repr__(self):
         return f"<Message(Thread_ThreadId={self.Thread_ThreadId}, " \
