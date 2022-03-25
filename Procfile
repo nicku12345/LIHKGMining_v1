@@ -1,1 +1,1 @@
-web: gunicorn 'wsgi:create_app()'
+web: gunicorn -b :$PORT 'wsgi:create_app()'
