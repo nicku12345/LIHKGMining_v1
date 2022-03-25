@@ -59,23 +59,27 @@ class Appsettings:
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(logging.DEBUG)
 
-        # common file handler
-        file_handler = TimedRotatingFileHandler(self.LOG_PATH, when="midnight", interval=1, encoding="utf8")
-        file_handler.setLevel(logging.DEBUG)
-        file_handler.suffix = "%Y%m%d"
-
         # formatter of the stream handler
         flask_app_formatter = logging.Formatter('[%(asctime)s] %(levelname)s: \t%(message)s')
 
         # apply the formatter to all handlers
         stream_handler.setFormatter(flask_app_formatter)
-        file_handler.setFormatter(flask_app_formatter)
 
         flask_app_logger.addHandler(stream_handler)
         # add this handler only if it is not test
-        if not self.IS_TEST:
-            flask_app_logger.addHandler(file_handler)
         werkzeug_logger.addHandler(stream_handler)
+
+        # Save log to files only if it is not a test environment
+        if not self.IS_TEST:
+            # common file handler
+            file_handler = TimedRotatingFileHandler(self.LOG_PATH, when="midnight", interval=1, encoding="utf8")
+
+            file_handler.setLevel(logging.DEBUG)
+            file_handler.suffix = "%Y%m%d"
+
+            file_handler.setFormatter(flask_app_formatter)
+
+            flask_app_logger.addHandler(file_handler)
 
         coloredlogs.install(logger=flask_app_logger, level=logging.DEBUG)
         coloredlogs.install(logger=werkzeug_logger, level=logging.DEBUG)
