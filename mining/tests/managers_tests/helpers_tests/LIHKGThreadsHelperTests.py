@@ -4,7 +4,7 @@ from mining.managers.helpers.LIHKGThreadsHelper import LIHKGThreadsHelper
 from mining.database.models.User import User
 from mining.database.models.Thread import Thread
 from mining.database.models.Message import Message
-from mining.tests._mock_data.examples.lihkg_api_v2_thread import example_json_response
+from mining.tests._mock_data.examples.lihkg_api_v2_thread_example import example_json_response
 
 class LIHKGThreadsHelperTestCase(BaseTestCase):
 
