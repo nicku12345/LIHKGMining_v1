@@ -10,3 +10,4 @@ Flask-SQLAlchemy
 flask-rq2
 flask_testing
 coloredlogs
+gunicorn
