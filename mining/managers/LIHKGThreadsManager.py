@@ -123,3 +123,30 @@ class LIHKGThreadsManager(BaseManager):
         self._threadsManager.AddThread(thread, user, messages, users)
 
         return True, len(messages)
+
+    def FetchAndQueueLIHKGThreadJobs(self):
+        '''
+        Fetch the threads listing on LIHKG Category 1 page.
+
+        Add the jobs to work queue.
+        '''
+
+        website_url, target_api_url_pref = \
+            self._lihkgThreadsHelper.GetLIHKGThreadJobWebsiteAndApiUrlPrefix()
+
+        self._logger.info("Trying to fetch for LIHKG thread jobs")
+        lihkg_category_response = \
+            self._playwrightHelper.FetchTargetApiByVisitingWebsite(website_url, target_api_url_pref)
+
+        if not self._lihkgThreadsHelper.IsResponseSuccess(lihkg_category_response):
+            self._logger.warning("Fetch job failed!")
+            return 0
+
+        jobs = self._lihkgThreadsHelper.ConvertToJobs(lihkg_category_response)
+        self._logger.debug(f"Received {len(jobs)} jobs")
+        self._logger.debug(f"LIHKGThreadIds of the jobs: {','.join(job.LIHKGThreadId for job in jobs)}")
+
+        for job in jobs:
+            LIHKGThreadsWORKQUEUE.Put(job)
+
+        return len(jobs)
