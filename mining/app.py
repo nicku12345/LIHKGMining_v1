@@ -1,7 +1,6 @@
 """
 The LIHKGMiningApp class
 """
-import random
 from flask import Flask
 
 class LIHKGMiningApp:
@@ -38,6 +37,6 @@ class LIHKGMiningApp:
         ManagersInitApp(app)
         BackgroundWorkersInitApp(app)
 
-        app.run(port=5000 + random.randint(0,999))
+        app.run("localhost")
 
         return app
