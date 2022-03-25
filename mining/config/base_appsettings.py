@@ -47,13 +47,18 @@ class Appsettings:
     def ApplyLoggingSettings(self, app):
         app.logger.handlers.clear()
 
+        # Waitress logger settings
+        waitress_logger = logging.getLogger("waitress")
+        waitress_logger.handlers.clear()
+        waitress_logger.disabled = True
+
         # Werkzeug logger settings
         werkzeug_logger = logging.getLogger("werkzeug")
         werkzeug_logger.handlers.clear()
 
         # flask app logger settings
         flask_app_logger = logging.getLogger("flask.app")
-        flask_app_logger.setLevel(logging.DEBUG)
+        flask_app_logger.handlers.clear()
 
         # common stream handler
         stream_handler = logging.StreamHandler()
@@ -83,3 +88,4 @@ class Appsettings:
 
         coloredlogs.install(logger=flask_app_logger, level=logging.DEBUG)
         coloredlogs.install(logger=werkzeug_logger, level=logging.DEBUG)
+        coloredlogs.install(logger=waitress_logger, level=logging.DEBUG)

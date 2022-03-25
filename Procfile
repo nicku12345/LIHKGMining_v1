@@ -1,1 +1,1 @@
-web: gunicorn -b :$PORT 'wsgi:create_app()'
+web: waitress-serve --call --listen=*:5000 'mining:create_app'
