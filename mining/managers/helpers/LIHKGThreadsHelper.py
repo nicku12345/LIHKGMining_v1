@@ -2,10 +2,12 @@
 Concrete helper class for LIHKG threads related functionalities.
 """
 from typing import Dict
+
 from mining.database.models.User import User
 from mining.database.models.Thread import Thread
 from mining.database.models.Message import Message
 from mining.managers.helpers.BaseHelper import BaseHelper
+from mining.background_workers.jobs.LIHKGThreadsJob import LIHKGThreadsJob
 
 
 class LIHKGThreadsHelper(BaseHelper):
@@ -20,6 +22,18 @@ class LIHKGThreadsHelper(BaseHelper):
         '''
         website_url = f"https://lihkg.com/thread/{LIHKGThreadId}/page/{page}"
         target_api_url_pref = f"https://lihkg.com/api_v2/thread/{LIHKGThreadId}/page/{page}"
+        return website_url, target_api_url_pref
+
+    def GetLIHKGThreadJobWebsiteAndApiUrlPrefix(self, category: int = 1):
+        '''
+        Returns the website url and target api to fetch for
+        a given category.
+
+        The default category is 1, which contains threads of all
+        other categories.
+        '''
+        website_url = f"https://lihkg.com/category/{category}"
+        target_api_url_pref = f"https://lihkg.com/api_v2/thread/latest?cat_id={category}"
         return website_url, target_api_url_pref
 
     def IsResponseSuccess(self, lihkg_thread: Dict):
@@ -109,3 +123,21 @@ class LIHKGThreadsHelper(BaseHelper):
         thread.LastUpdate          = int(lihkg_thread["response"]["last_reply_time"])
 
         return thread
+
+    def ConvertToJobs(self, lihkg_category_response: Dict):
+        '''
+        Converts the fetched response to a list of LIHKGThreadJobs.
+        '''
+        jobs = []
+
+        for thread in lihkg_category_response["response"]["items"]:
+            LIHKGThreadId = thread["thread_id"]
+            job = LIHKGThreadsJob(
+                LIHKGThreadId=LIHKGThreadId,
+                page=1,
+                isFullFetch=True
+            )
+
+            jobs.append(job)
+
+        return jobs

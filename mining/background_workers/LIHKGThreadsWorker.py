@@ -52,6 +52,17 @@ class LIHKGThreadsWorker(BaseWorker):
                         )
 
                 self._logger.debug(f"Job {LIHKGThreadsjob} finished")
+            elif self._is_auto_fetch_lihkg_thread_jobs:
+                self._logger.debug("No job polled from LIHKG thread worker. Trying to fetch for jobs...")
+
+                with self._app.app_context():
+
+                    lihkgThreadsManager = LIHKGThreadsManager()
+                    try:
+                        num_jobs_added = lihkgThreadsManager.FetchAndQueueLIHKGThreadJobs()
+                        self._logger.info(f"Queued {num_jobs_added} jobs.")
+                    except Exception as e:
+                        self._logger.error(f"No jobs fetched. Reason: {e}")
 
             time.sleep(self._sleep_time)
 
