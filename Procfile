@@ -1,3 +1,1 @@
-web: export FLASK_APP=mining
-web: export FLASK_ENV=development
-web: flask run
+web: waitress-serve --call --listen=*:5000 'mining:create_app'
