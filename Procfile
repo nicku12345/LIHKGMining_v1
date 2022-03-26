@@ -1,1 +1,1 @@
-web: waitress-serve --call 'mining:create_app'
+web: waitress-serve --call --host="0.0.0.0" --port="$PORT" 'mining:create_app'
