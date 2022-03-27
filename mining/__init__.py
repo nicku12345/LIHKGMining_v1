@@ -8,3 +8,5 @@ def create_app():
     Create a Flask app
     """
     return LIHKGMiningApp.CreateApp()
+
+app = create_app()

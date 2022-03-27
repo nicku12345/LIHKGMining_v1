@@ -3,5 +3,4 @@ env
 htmlcov
 .coverage
 *.db
-*.log
 __pycache__

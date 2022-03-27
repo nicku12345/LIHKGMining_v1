@@ -17,7 +17,6 @@ class LIHKGMiningApp:
 
         if ENV == "DEV":
             from mining.config.appsettings_dev import APPSETTINGS
-            app.run()
         elif ENV == "TEST":
             from mining.config.appsettings_test import APPSETTINGS
         elif ENV == "PROD":
