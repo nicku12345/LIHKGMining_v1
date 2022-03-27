@@ -1,15 +1,9 @@
 
-
 FROM mcr.microsoft.com/playwright:v1.17.0-focal
 
 WORKDIR /LIHKGmining_v1
 
 COPY . /LIHKGmining_v1
-
-# RUN apt-get install -y python3-pip
-#RUN set -xe \
-#    && apt-get update \
-#    && apt-get install -y python3-pip
 
 RUN pip install -r requirements.txt
 

@@ -17,13 +17,13 @@ flask run --no-reload
 
 # Running unit tests:
 
-To me: make sure all tests have been imported to ```mining\tests\__init__.py```.
+Make sure all tests have been imported to ```mining\tests\__init__.py```.
 
 ```shell
 python -m unittest discover -v
 ```
 
-with the ```coverage``` package:
+with the ```coverage``` package (see .coveragerc for configurations):
 ```shell
 coverage run --source=. -m unittest discover
 coverage report -m
@@ -35,10 +35,6 @@ coverage html
 building image
 ```shell
 docker image build -t {image_name} .
-```
-
-run the image in a container
-```shell
 docker run -d -p 5000:5000 --name {container_name} {image_name}
 ```
 
