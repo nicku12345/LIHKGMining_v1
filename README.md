@@ -29,3 +29,23 @@ coverage run --source=. -m unittest discover
 coverage report -m
 coverage html
 ```
+
+# Docker
+
+building image
+```shell
+docker image build -t {image_name} .
+```
+
+run the image in a container
+```shell
+docker run -d -p 5000:5000 --name {container_name} {image_name}
+```
+
+deploy on Heroku
+```shell
+heroku login
+heroku container:login
+heroku container:push web
+heroku container:release web
+```
