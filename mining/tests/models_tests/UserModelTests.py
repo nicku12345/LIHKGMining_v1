@@ -47,3 +47,19 @@ class UserUpdate_IfOriginalUserIsOutdated_Update(BaseTestCase):
         self.assertTrue(current_user.Gender == "F")
         self.assertTrue(current_user.CreateDate == 4)
         self.assertTrue(current_user.LastUpdate == 35)
+
+class UserSerialize_Test(BaseTestCase):
+    def test(self):
+        # arrange
+        user = User(LIHKGUserId=98, Nickname="test user", Gender="M", CreateDate=12, LastUpdate=12)
+
+        # act
+        res = user.Serialize()
+
+        # assert
+        self.assertTrue(isinstance(res, dict))
+        self.assertTrue(res["LIHKGUserId"] == 98)
+        self.assertTrue(res["Nickname"] == "test user")
+        self.assertTrue(res["Gender"] == "M")
+        self.assertTrue(res["CreateDate"] == 12)
+        self.assertTrue(res["LastUpdate"] == 12)

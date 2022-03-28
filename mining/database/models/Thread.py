@@ -69,6 +69,7 @@ class Thread(db.Model):
             "LIHKGThreadId": self.LIHKGThreadId,
             "CategoryId": self.CategoryId,
             "SubCategoryId": self.SubCategoryId,
+            "Title": self.Title,
             "NumberOfReplies": self.NumberOfReplies,
             "NumberOfUniReplies": self.NumberOfUniReplies,
             "LikeCount": self.LikeCount,
