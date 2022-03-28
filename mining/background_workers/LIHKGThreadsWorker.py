@@ -3,7 +3,7 @@ Concrete worker class for LIHKG threads related functionalities.
 """
 import time
 from mining.background_workers.BaseWorker import BaseWorker
-from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
+from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
 
 class LIHKGThreadsWorker(BaseWorker):
