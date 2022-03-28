@@ -2,10 +2,10 @@
 The appsettings class. Stores configurations for the application.
 """
 import logging
+from dataclasses import dataclass
 from logging.handlers import TimedRotatingFileHandler
 import coloredlogs
 from flask import Flask
-from dataclasses import dataclass
 
 @dataclass
 class Appsettings:
@@ -45,12 +45,13 @@ class Appsettings:
         self.ApplyLoggingSettings(app)
 
     def ApplyLoggingSettings(self, app):
-        app.logger.handlers.clear()
+        '''
+        Apply the logging settings to the app.
 
-        # Waitress logger settings
-        waitress_logger = logging.getLogger("waitress")
-        waitress_logger.handlers.clear()
-        waitress_logger.disabled = True
+        It mainly manages the werkzeug (the default logger from the framework)
+        and the flask app logger.
+        '''
+        app.logger.handlers.clear()
 
         # Werkzeug logger settings
         werkzeug_logger = logging.getLogger("werkzeug")
@@ -88,4 +89,3 @@ class Appsettings:
 
         coloredlogs.install(logger=flask_app_logger, level=logging.DEBUG)
         coloredlogs.install(logger=werkzeug_logger, level=logging.DEBUG)
-        coloredlogs.install(logger=waitress_logger, level=logging.DEBUG)

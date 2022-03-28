@@ -52,9 +52,13 @@ class Message(db.Model):
         Returns a serialized representation of the object.
         '''
         return {
-            "MessageId": self.MessageId,
             "Message": self.Message,
-            "User": self.User.Serialize() if self.User is not None else None
+            "LikeCount": self.LikeCount,
+            "DislikeCount": self.DislikeCount,
+            "MessageNumber": self.MessageNumber,
+            "User": self.User.Serialize() if self.User is not None else None,
+            "CreateDate": self.CreateDate,
+            "LastUpdate": self.LastUpdate
         }
 
     def Copy(self):

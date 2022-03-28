@@ -3,9 +3,7 @@ Controller for LIHKG threads related functionalities
 """
 import json
 from flask import Blueprint, request, Response
-from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
 from mining.controllers.request_models.LIHKGThreadsRequestModels import *
-
 from mining.background_workers.jobs.LIHKGThreadsJob import LIHKGThreadsJob
 from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 
