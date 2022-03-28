@@ -1,7 +1,7 @@
 """
 Do necessary init for the background workers.
 """
-from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
+from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 from mining.background_workers.LIHKGThreadsWorker import lihkgThreadsWorker
 
 def BackgroundWorkersInitApp(app):

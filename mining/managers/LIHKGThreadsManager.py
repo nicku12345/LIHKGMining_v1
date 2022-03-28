@@ -7,7 +7,7 @@ from mining.managers.BaseManager import BaseManager
 from mining.managers.ThreadsManager import ThreadsManager
 from mining.managers.helpers.LIHKGThreadsHelper import LIHKGThreadsHelper
 from mining.managers.helpers.PlaywrightHelper import PlaywrightHelper
-from mining.background_workers.WorkQueue import LIHKGThreadsWORKQUEUE
+from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 from mining.background_workers.jobs.LIHKGThreadsJob import LIHKGThreadsJob
 
 class LIHKGThreadsManager(BaseManager):

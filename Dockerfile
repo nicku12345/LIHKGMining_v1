@@ -21,4 +21,4 @@ CMD gunicorn -b 0.0.0.0:$PORT 'mining:app'
 
 # Deployment using waitress is not recommended.
 # Waitress has a known issue where it will duplicate logging messages
-# CMD waitress-serve --call --host="0.0.0.0" --port=5000 'mining:create_app' &> /dev/null
+# CMD waitress-serve --host="0.0.0.0" --port=5000 'mining:app'

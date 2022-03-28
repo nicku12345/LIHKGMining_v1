@@ -14,7 +14,6 @@ export FLASK_ENV=development
 flask run --no-reload
 ```
 
-
 # Running unit tests:
 
 Make sure all tests have been imported to ```mining\tests\__init__.py```.

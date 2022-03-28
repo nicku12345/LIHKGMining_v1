@@ -14,3 +14,14 @@ class LIHKGThreadsJob:
     page            : int
     isFullFetch     : bool
     CreateTime      : datetime = datetime.utcnow()
+
+    def Serialize(self):
+        '''
+        Serialize self.
+        '''
+        return {
+            "LIHKGThreadId": self.LIHKGThreadId,
+            "page": self.page,
+            "isFullFetch": self.isFullFetch,
+            "CreateTime": str(self.CreateTime)
+        }

@@ -12,3 +12,4 @@ flask_testing
 coloredlogs
 gunicorn
 waitress
+dataclasses-json
