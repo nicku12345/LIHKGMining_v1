@@ -46,7 +46,7 @@ class LIHKGThreadsWorkQueue:
         Check whether the first work of the queue is created a long time ago.
 
         This is called before the Put, Get, IsEmpty methods to
-        remove continuously failing work.
+        avoid to many jobs stacking
         '''
 
         now = datetime.utcnow()
@@ -58,7 +58,21 @@ class LIHKGThreadsWorkQueue:
             else:
                 break
 
+    def QueryAllWork(self):
+        '''
+        Query all existing work in the queue.
+        '''
 
-# Singleton pattern
+        return list(self._queue.queue)
+
+    def ClearAllWork(self):
+        '''
+        Clear all existing work in the queue.
+        '''
+
+        while not self._queue.empty():
+            self._queue.get_nowait()
+
+# Singleton
 # The work queue for handling LIHKG threads jobs.
 LIHKGThreadsWORKQUEUE = LIHKGThreadsWorkQueue()
