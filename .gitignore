@@ -2,6 +2,7 @@
 env
 htmlcov
 database_secrets
+flask.log.*
 .coverage
 *.db
 __pycache__
