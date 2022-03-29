@@ -1,56 +1,22 @@
-[2022-03-28 18:51:19,259] DEBUG: 	Waking up worker...
-[2022-03-28 18:54:52,239] DEBUG: 	Waking up worker...
-[2022-03-28 18:55:02,253] DEBUG: 	Jobs polled LIHKGThreads worker...
-[2022-03-28 18:55:02,254] DEBUG: 	LIHKGThreads worker received job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 10, 54, 52, 130291))
-[2022-03-28 18:55:02,258] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 18:55:02,259] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 18:55:02,260] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 18:55:02,263] INFO: 	Now fetching...
-[2022-03-28 18:55:08,960] ERROR: 	No xhr or fetch response found. Website=https://lihkg.com/thread/2940448/page/1. Target_api prefix=https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 18:55:09,002] WARNING: 	Failed fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 18:55:09,783] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 18:55:09,783] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 18:55:09,784] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 18:55:09,785] INFO: 	Now fetching...
-[2022-03-28 18:55:22,010] WARNING: 	Encountered exception: Navigation failed because page was closed!
-=========================== logs ===========================
-navigating to "https://lihkg.com/thread/2940448/page/1", waiting until "networkidle"
-============================================================
-[2022-03-28 18:55:22,012] DEBUG: 	Job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 10, 54, 52, 130291)) finished
-[2022-03-28 19:00:41,617] DEBUG: 	Waking up worker...
-[2022-03-28 19:00:46,623] DEBUG: 	Jobs polled LIHKGThreads worker...
-[2022-03-28 19:00:46,624] DEBUG: 	LIHKGThreads worker received job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 11, 0, 41, 504427))
-[2022-03-28 19:00:46,624] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 19:00:46,625] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 19:00:46,626] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 19:00:46,626] INFO: 	Now fetching...
-[2022-03-28 19:00:49,433] ERROR: 	No xhr or fetch response found. Website=https://lihkg.com/thread/2940448/page/1. Target_api prefix=https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 19:00:49,489] WARNING: 	Failed fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 19:00:49,604] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 19:00:49,604] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 19:00:49,605] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 19:00:49,605] INFO: 	Now fetching...
-[2022-03-28 19:01:02,654] DEBUG: 	Waking up worker...
-[2022-03-28 19:01:07,659] DEBUG: 	Jobs polled LIHKGThreads worker...
-[2022-03-28 19:01:07,662] DEBUG: 	LIHKGThreads worker received job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 11, 1, 2, 563434))
-[2022-03-28 19:01:07,664] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 19:01:07,664] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 19:01:07,665] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 19:01:07,666] INFO: 	Now fetching...
-[2022-03-28 19:01:11,134] WARNING: 	Encountered exception: Navigation failed because page was closed!
-=========================== logs ===========================
-navigating to "https://lihkg.com/thread/2940448/page/1", waiting until "networkidle"
-============================================================
-[2022-03-28 19:01:11,138] DEBUG: 	Job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 11, 1, 2, 563434)) finished
-[2022-03-28 19:02:42,468] DEBUG: 	Waking up worker...
-[2022-03-28 19:02:47,484] DEBUG: 	Jobs polled LIHKGThreads worker...
-[2022-03-28 19:02:47,484] DEBUG: 	LIHKGThreads worker received job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 11, 2, 42, 371596))
-[2022-03-28 19:02:47,485] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
-[2022-03-28 19:02:47,486] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
-[2022-03-28 19:02:47,486] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
-[2022-03-28 19:02:47,487] INFO: 	Now fetching...
-[2022-03-28 19:03:00,023] WARNING: 	Encountered exception: Navigation failed because page was closed!
-=========================== logs ===========================
-navigating to "https://lihkg.com/thread/2940448/page/1", waiting until "networkidle"
-============================================================
-[2022-03-28 19:03:00,026] DEBUG: 	Job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 28, 11, 2, 42, 371596)) finished
+[2022-03-29 22:53:31,010] DEBUG: 	Waking up worker...
+[2022-03-29 22:54:26,089] DEBUG: 	Jobs polled LIHKGThreads worker...
+[2022-03-29 22:54:26,089] DEBUG: 	LIHKGThreads worker received job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 29, 14, 53, 25, 722373))
+[2022-03-29 22:54:26,090] INFO: 	Received fetch on LIHKGThreadId: 2940448, Page: 1
+[2022-03-29 22:54:26,090] DEBUG: 	Generated website url: https://lihkg.com/thread/2940448/page/1
+[2022-03-29 22:54:26,091] DEBUG: 	Generated API url prefix: https://lihkg.com/api_v2/thread/2940448/page/1
+[2022-03-29 22:54:26,092] INFO: 	Now fetching...
+[2022-03-29 22:54:49,349] INFO: 	Successful fetch on website=https://lihkg.com/thread/2940448/page/1, API prefix=https://lihkg.com/api_v2/thread/2940448/page/1
+[2022-03-29 22:54:49,432] DEBUG: 	Fetched thread: <Thread(LIHKGThreadId=2940448, Title=WFH咗大半年，今日一著返西裝返工就出事, LikeCount=2417, DislikeCount=16, MessagesCount=0, User_UserId=None>
+[2022-03-29 22:54:49,433] DEBUG: 	Fetched user: <User(LIHKGUserId=394654, Nickname=科興揸弗人, Gender=M, CreateDate=1615622760, LastUpdate=1615622760, RetrievedDate=None)>
+[2022-03-29 22:54:49,433] DEBUG: 	Fetched messages count: 25
+[2022-03-29 22:54:49,433] INFO: 	Persisting the found thread to database
+[2022-03-29 22:54:49,434] INFO: 	Received add thread request.
+[2022-03-29 22:54:49,435] DEBUG: 	Thread=<Thread(LIHKGThreadId=2940448, Title=WFH咗大半年，今日一著返西裝返工就出事, LikeCount=2417, DislikeCount=16, MessagesCount=0, User_UserId=None>
+[2022-03-29 22:54:49,436] DEBUG: 	User=<User(LIHKGUserId=394654, Nickname=科興揸弗人, Gender=M, CreateDate=1615622760, LastUpdate=1615622760, RetrievedDate=None)>
+[2022-03-29 22:54:49,436] DEBUG: 	Number of messages=25
+[2022-03-29 22:54:49,621] INFO: 	Author of the thread is a new user.
+[2022-03-29 22:54:49,621] INFO: 	Adding user...
+[2022-03-29 22:54:49,621] DEBUG: 	<User(LIHKGUserId=394654, Nickname=科興揸弗人, Gender=M, CreateDate=1615622760, LastUpdate=1615622760, RetrievedDate=None)>
+[2022-03-29 22:54:50,352] INFO: 	User <User(LIHKGUserId=394654, Nickname=科興揸弗人, Gender=M, CreateDate=1615622760, LastUpdate=1615622760, RetrievedDate=2022-03-29 14:54:49)> added!
+[2022-03-29 22:54:50,723] INFO: 	No existing matching thread for 2940448 found. Creating one new thread...
+[2022-03-29 22:55:00,219] DEBUG: 	Job LIHKGThreadsJob(LIHKGThreadId=2940448, page=1, isFullFetch=False, CreateTime=datetime.datetime(2022, 3, 29, 14, 53, 25, 722373)) finished

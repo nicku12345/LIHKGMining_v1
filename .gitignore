@@ -1,6 +1,7 @@
 .idea
 env
 htmlcov
+database_secrets
 .coverage
 *.db
 __pycache__
