@@ -13,3 +13,4 @@ coloredlogs
 gunicorn
 waitress
 dataclasses-json
+pymysql

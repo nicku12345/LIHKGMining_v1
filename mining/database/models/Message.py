@@ -17,7 +17,7 @@ class Message(db.Model):
     User_UserId = db.Column(db.Integer, db.ForeignKey("Users.UserId"), nullable=False)
     LikeCount = db.Column(db.Integer, nullable=False)
     DislikeCount = db.Column(db.Integer, nullable=False)
-    Message = db.Column(db.String, nullable=False)
+    Message = db.Column(db.Text, nullable=False)
     MessageNumber = db.Column(db.Integer, nullable=False)
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
