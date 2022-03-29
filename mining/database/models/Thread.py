@@ -17,7 +17,7 @@ class Thread(db.Model):
     LIHKGThreadId = db.Column(db.Integer, unique=True, nullable=False)
     CategoryId = db.Column(db.Integer, nullable=False)
     SubCategoryId = db.Column(db.Integer, nullable=False)
-    Title = db.Column(db.String, nullable=False)
+    Title = db.Column(db.Text, nullable=False)
     NumberOfReplies = db.Column(db.Integer, nullable=False)
     NumberOfUniReplies = db.Column(db.Integer, nullable=False)
     LikeCount = db.Column(db.Integer, nullable=False)

@@ -14,8 +14,8 @@ class User(db.Model):
 
     UserId = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     LIHKGUserId = db.Column(db.Integer, unique=True, nullable=False)
-    Nickname = db.Column(db.String, nullable=False)
-    Gender = db.Column(db.String(1), nullable=False)
+    Nickname = db.Column(db.Text, nullable=False)
+    Gender = db.Column(db.Text(1), nullable=False)
     CreateDate = db.Column(db.BigInteger, nullable=False)
     LastUpdate = db.Column(db.BigInteger, nullable=False)
     RetrievedDate = db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())

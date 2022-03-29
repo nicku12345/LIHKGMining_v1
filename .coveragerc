@@ -1,9 +1,10 @@
 [report]
 omit =
         ./mining/tests/*
-        */mining/config/appsettings*
-
+        ./mining/config/appsettings*
+        ./mining/config/database_secrets/*
 [html]
 omit =
         ./mining/tests/*
-        */mining/config/appsettings*
+        ./mining/config/appsettings*
+        ./mining/config/database_secrets/*
