@@ -27,6 +27,7 @@ from mining.tests.managers_tests.ThreadsManagerTests import *
 HELPERS TESTS
 '''
 from mining.tests.managers_tests.helpers_tests.LIHKGThreadsHelperTests import *
+from mining.tests.managers_tests.helpers_tests.PlaywrightHelperTests import *
 
 '''
 WORKERS TESTS
