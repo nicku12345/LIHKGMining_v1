@@ -14,3 +14,4 @@ gunicorn
 waitress
 dataclasses-json
 pymysql
+coverage
