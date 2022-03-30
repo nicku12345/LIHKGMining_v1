@@ -12,11 +12,33 @@ class PlaywrightHelper(BaseHelper):
     Concrete helper for playright related functionalities.
     """
 
+    def __init__(self):
+        super().__init__()
+        self._playwright = None
+
+    def GetPlaywright(self):
+        '''
+        Get a playwright instance.
+
+        One helper instance can have at most one playwright instance
+        '''
+        if self._playwright is not None:
+            return self._playwright
+
+        self._playwright = sync_playwright().start()
+        return self._playwright
+
+    def StopPlaywright(self):
+        '''
+        Stop a playwright instance
+        '''
+        self._playwright.stop()
+
     def FetchTargetApiByVisitingWebsite(self, website_url: str, target_api_uri_prefix: str):
         '''
         Visit the website and fetch response with the target api uri prefix.
         '''
-        p = sync_playwright().start()
+        p = self.GetPlaywright()
         browser = p.webkit.launch()
         page = browser.new_page()
 
@@ -47,6 +69,6 @@ class PlaywrightHelper(BaseHelper):
             self._logger.info(f"Successful fetch on website={website_url}, API prefix={target_api_uri_prefix}")
 
         browser.close()
-        p.stop()
+        self.StopPlaywright()
 
         return response
