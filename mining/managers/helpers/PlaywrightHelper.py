@@ -33,6 +33,7 @@ class PlaywrightHelper(BaseHelper):
         Stop a playwright instance
         '''
         self._playwright.stop()
+        self._playwright = None
 
     def FetchTargetApiByVisitingWebsite(self, website_url: str, target_api_uri_prefix: str):
         '''
@@ -56,7 +57,8 @@ class PlaywrightHelper(BaseHelper):
                     raise ExternalApiIsNotUniqueException(f"Found multiple APIs having {target_api_uri_prefix} as prefix")
 
                 if not res.ok:
-                    raise ExternalApiRequestException(f"External API {res.request.url} failed.")
+                    self._logger.warning(f"External API {res.request.url} failed.")
+                    return
 
                 response = res.json()
 
