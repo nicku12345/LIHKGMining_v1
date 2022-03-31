@@ -64,7 +64,7 @@ class FetchTargetApiByVisitingWebsite_IfHasMultipleResponse_ExpectException(Base
         # act
         self.assertRaises(Exception, helper.FetchTargetApiByVisitingWebsite, "http://test.com", "http://test.com/api")
 
-class FetchTargetApiByVisitingWebsite_IfResNotOk_ExpectException(BaseTestCase):
+class FetchTargetApiByVisitingWebsite_IfResNotOk_IgnoreResponse(BaseTestCase):
     def test(self):
         # arrange
         MockPage.ClearMockResponse()
@@ -83,7 +83,10 @@ class FetchTargetApiByVisitingWebsite_IfResNotOk_ExpectException(BaseTestCase):
         MockPage.AddMockResponse(mockRes)
 
         # act
-        self.assertRaises(Exception, helper.FetchTargetApiByVisitingWebsite, "http://test.com", "http://test.com/api")
+        res = helper.FetchTargetApiByVisitingWebsite("http://test.com","http://test.com/api")
+
+        # assert
+        self.assertTrue(res is None)
 
 class FetchTargetApiByVisitingWebsite_IfResIsNotXHR_Ignore(BaseTestCase):
     def test(self):
