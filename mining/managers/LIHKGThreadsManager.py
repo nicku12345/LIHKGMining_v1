@@ -3,6 +3,7 @@ Concete manager class for LIHKG threads related functionalities.
 """
 import time
 import random
+from mining.config.base_appsettings import LIHKGThreadsManagerOptions
 from mining.managers.BaseManager import BaseManager
 from mining.managers.ThreadsManager import ThreadsManager
 from mining.managers.helpers.LIHKGThreadsHelper import LIHKGThreadsHelper
@@ -15,20 +16,14 @@ class LIHKGThreadsManager(BaseManager):
     Concrete manager class for LIHKG threads related functionalities.
     """
 
+    # class attributes to be injected by the Appsettings.LIHKGThreadsManagerOptions
+    _options: LIHKGThreadsManagerOptions = None
+
     def __init__(self):
         super().__init__()
         self._threadsManager = ThreadsManager()
         self._lihkgThreadsHelper = LIHKGThreadsHelper()
         self._playwrightHelper = PlaywrightHelper()
-
-        # Used for fetching threads. The fetch will retry on failure,
-        # and stop once reaching this threshold
-        self._max_failure_cnt = 3
-
-        # Used for fetching threads. Introduces a sleep between page fetches with
-        # duration randomly chosen in the open interval (0, _sleep_time).
-        # Its purpose is to create a more dynamic and less machinery behavior.
-        self._sleep_time = 3
 
     def FullFetchOneThreadByLIHKGThreadIdWithRetry(
             self,
@@ -49,7 +44,7 @@ class LIHKGThreadsManager(BaseManager):
 
             if success and num_msgs_fetched == 0:
                 break
-            time.sleep(random.uniform(0, self._sleep_time))
+            time.sleep(random.uniform(0, self._options.SleepTime))
 
     def FetchOneThreadPageByLIHKGThreadIdWithRetry(self, LIHKGThreadId: int, page: int):
         '''
@@ -73,7 +68,7 @@ class LIHKGThreadsManager(BaseManager):
                 return False, 0
 
             failure_cnt += 1
-            if failure_cnt >= self._max_failure_cnt:
+            if failure_cnt >= self._options.MaxFailureCount:
                 self._logger.info(f"Putting thread: {LIHKGThreadId}, "
                                   f"page: {page} to queue for latter re-processing.")
 
@@ -85,7 +80,7 @@ class LIHKGThreadsManager(BaseManager):
                 LIHKGThreadsWORKQUEUE.Put(job)
                 return False, 0
 
-            time.sleep(random.uniform(0, self._sleep_time))
+            time.sleep(random.uniform(0, self._options.SleepTime))
 
 
     def FetchOneThreadPageByLIHKGThreadId(self, LIHKGThreadId: int, page: int):

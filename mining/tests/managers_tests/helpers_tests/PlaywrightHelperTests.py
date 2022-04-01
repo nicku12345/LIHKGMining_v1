@@ -42,7 +42,7 @@ class FetchTargetApiByVisitingWebsite_IfHasResponse_ReturnTheResponse(BaseTestCa
         self.assertTrue(res["mock"] == "response")
 
 
-class FetchTargetApiByVisitingWebsite_IfHasMultipleResponse_ExpectException(BaseTestCase):
+class FetchTargetApiByVisitingWebsite_IfHasMultipleResponse_ResponseIsTheFirstResponseFetched(BaseTestCase):
     def test(self):
         # arrange
         MockPage.ClearMockResponse()
@@ -51,18 +51,28 @@ class FetchTargetApiByVisitingWebsite_IfHasMultipleResponse_ExpectException(Base
         helper = PlaywrightHelper()
         helper._playwright = mockPlaywright
 
-        mockRes = MockResponse(
+        mockRes1 = MockResponse(
             req=MockRequest(
                 url="http://test.com/api",
             ),
             ok=True,
-            json={"mock":"response"}
+            json={"mock":"response1"}
         )
-        MockPage.AddMockResponse(mockRes)
-        MockPage.AddMockResponse(mockRes)
+        mockRes2 = MockResponse(
+            req=MockRequest(
+                url="http://test.com/api",
+            ),
+            ok=True,
+            json={"mock":"response2"}
+        )
+        MockPage.AddMockResponse(mockRes1)
+        MockPage.AddMockResponse(mockRes2)
 
         # act
-        self.assertRaises(Exception, helper.FetchTargetApiByVisitingWebsite, "http://test.com", "http://test.com/api")
+        res = helper.FetchTargetApiByVisitingWebsite("http://test.com", "http://test.com/api")
+
+        # assert
+        self.assertTrue(res["mock"] == "response1")
 
 class FetchTargetApiByVisitingWebsite_IfResNotOk_IgnoreResponse(BaseTestCase):
     def test(self):

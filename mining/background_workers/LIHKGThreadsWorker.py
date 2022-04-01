@@ -5,11 +5,13 @@ import time
 from mining.background_workers.BaseWorker import BaseWorker
 from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 from mining.managers.LIHKGThreadsManager import LIHKGThreadsManager
+from mining.config.options.LIHKGThreadsWorkerOptions import LIHKGThreadsWorkerOptions
 
 class LIHKGThreadsWorker(BaseWorker):
     """
     Concrete worker class for LIHKG threads related functionalities.
     """
+    _options: LIHKGThreadsWorkerOptions = None
 
     def Work(self):
         '''
@@ -52,7 +54,7 @@ class LIHKGThreadsWorker(BaseWorker):
                         )
 
                 self._logger.debug(f"Job {LIHKGThreadsjob} finished")
-            elif self._is_auto_fetch_lihkg_thread_jobs:
+            elif self._options.IsAutoFetchLIHKGThreadJobs:
                 self._logger.debug("No job polled from LIHKG thread worker. Trying to fetch for jobs...")
 
                 with self._app.app_context():
@@ -64,7 +66,7 @@ class LIHKGThreadsWorker(BaseWorker):
                     except Exception as e:
                         self._logger.error(f"No jobs fetched. Reason: {e}")
 
-            time.sleep(self._sleep_time)
+            time.sleep(self._baseOptions.SleepTime)
 
 '''
 Singleton pattern of the background worker.
