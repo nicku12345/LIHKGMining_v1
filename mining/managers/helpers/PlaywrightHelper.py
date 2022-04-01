@@ -11,6 +11,7 @@ class PlaywrightHelper(BaseHelper):
     """
     Concrete helper for playright related functionalities.
     """
+    _options = None
 
     def __init__(self):
         super().__init__()
@@ -63,7 +64,10 @@ class PlaywrightHelper(BaseHelper):
                 response = res.json()
 
         page.on("response", UpdateResponseIfIsTargetApi)
-        page.goto(website_url, timeout=0, wait_until="networkidle")
+        try:
+            page.goto(website_url, timeout=self._options.TimeoutMSLimit, wait_until="networkidle")
+        except Exception as e:
+            self._logger.error(f"Encountered exceptions when executing page.goto. {e}")
 
         if response is None:
             self._logger.error(f"No xhr or fetch response found. Website={website_url}. Target_api prefix={target_api_uri_prefix}")
