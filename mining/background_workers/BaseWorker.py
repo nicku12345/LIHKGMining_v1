@@ -8,15 +8,12 @@ class BaseWorker:
     """
     Base class of a worker.
     """
+    _baseOptions = None
 
     def __init__(self, queue):
         self._logger = logging.getLogger("flask.app")
         self._queue = queue
         self._app = None
-        self._is_auto_fetch_lihkg_thread_jobs = False
-
-        # The time interval between each job polling
-        self._sleep_time = 5
 
     def SetApp(self, app):
         '''
@@ -27,7 +24,6 @@ class BaseWorker:
         :param app: a Flask instance, which is the main flask application
         '''
         self._app = app
-        self._is_auto_fetch_lihkg_thread_jobs = self._app.config["IS_AUTO_FETCH_LIHKGTHREADJOBS"]
 
     def Work(self):
         '''

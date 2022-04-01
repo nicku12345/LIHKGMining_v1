@@ -6,6 +6,11 @@ from dataclasses import dataclass
 from logging.handlers import TimedRotatingFileHandler
 import coloredlogs
 from flask import Flask
+from mining.config.options.LIHKGThreadsManagerOptions import LIHKGThreadsManagerOptions
+from mining.config.options.PlaywrightHelperOptions import PlaywrightHelperOptions
+from mining.config.options.LIHKGThreadsWorkerOptions import LIHKGThreadsWorkerOptions
+from mining.config.options.BaseWorkerOptions import BaseWorkerOptions
+
 
 @dataclass
 class Appsettings:
@@ -13,14 +18,24 @@ class Appsettings:
     The appsettings class. Stores configurations for the application.
     """
 
+    # General settings
     SQLALCHEMY_DATABASE_URI         : str
     SQLALCHEMY_TRACK_MODIFICATIONS  : bool
     LOG_PATH                        : str = "./mining/data/logs/flask.log"
     IS_TEST                         : bool = False
     ENVIRONMENT                     : str = "DEV"
 
-    # If set true, LIHKG thread worker will automatically fetch for jobs
-    IS_AUTO_FETCH_LIHKGTHREADJOBS   : bool = False
+    # Settings on LIHKGThreadsManager
+    LIHKGThreadsManagerOptions      : LIHKGThreadsManagerOptions = None
+
+    # Settings on PlaywrightHelper
+    PlaywrightHelperOptions         : PlaywrightHelperOptions = None
+
+    # Settings on LIHKGThreadsWorker
+    LIHKGThreadsWorkerOptions       : LIHKGThreadsWorkerOptions = None
+
+    # Settings on BaseWorker
+    BaseWorkerOptions               : BaseWorkerOptions = None
 
     def ApplySettings(self, app: Flask):
         '''
@@ -34,7 +49,6 @@ class Appsettings:
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.SQLALCHEMY_TRACK_MODIFICATIONS
         app.config["IS_TEST"] = self.IS_TEST
         app.config["ENVIRONMENT"] = self.ENVIRONMENT
-        app.config["IS_AUTO_FETCH_LIHKGTHREADJOBS"] = self.IS_AUTO_FETCH_LIHKGTHREADJOBS
 
         '''
         LOGGING SETTINGS

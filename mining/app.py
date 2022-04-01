@@ -33,7 +33,7 @@ class LIHKGMiningApp:
 
         DatabaseInitApp(app)
         ControllersInitApp(app)
-        ManagersInitApp(app)
-        BackgroundWorkersInitApp(app)
+        ManagersInitApp(app, appsettings = APPSETTINGS)
+        BackgroundWorkersInitApp(app, appsettings = APPSETTINGS)
 
         return app
