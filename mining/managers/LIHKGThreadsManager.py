@@ -3,6 +3,7 @@ Concete manager class for LIHKG threads related functionalities.
 """
 import time
 import random
+from datetime import datetime
 from mining.config.base_appsettings import LIHKGThreadsManagerOptions
 from mining.managers.BaseManager import BaseManager
 from mining.managers.ThreadsManager import ThreadsManager
@@ -44,14 +45,22 @@ class LIHKGThreadsManager(BaseManager):
 
             if success and num_msgs_fetched == 0:
                 break
+
             time.sleep(random.uniform(0, self._options.SleepTime))
 
-    def FetchOneThreadPageByLIHKGThreadIdWithRetry(self, LIHKGThreadId: int, page: int):
+    def FetchOneThreadPageByLIHKGThreadIdWithRetry(
+            self,
+            LIHKGThreadId: int,
+            page: int,
+            createTime: datetime = datetime.utcnow()):
         '''
         Performs a fetch for one LIHKG thread page with retrials.
 
         :param LIHKGThreadId: The LIHKG thread id.
         :param page: The number of page to fetch.
+        :param createdTime: (Optional) The createdTime of the request being made.
+            This option is to let the work queue drop continuously failing job.
+            This parameter should be used by LIHKGThreadsWorker.
         :return: (success: bool, number_messages_fetched: int)
         '''
         failure_cnt = 0
@@ -75,7 +84,8 @@ class LIHKGThreadsManager(BaseManager):
                 job = LIHKGThreadsJob(
                     LIHKGThreadId=LIHKGThreadId,
                     page=page,
-                    isFullFetch=False
+                    isFullFetch=False,
+                    CreateTime = createTime
                 )
                 LIHKGThreadsWORKQUEUE.Put(job)
                 return False, 0
