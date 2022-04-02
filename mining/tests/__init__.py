@@ -32,4 +32,5 @@ from mining.tests.managers_tests.helpers_tests.PlaywrightHelperTests import *
 '''
 WORKERS TESTS
 '''
+from mining.tests.background_workers_tests.LIHKGThreadsJobTests import *
 from mining.tests.background_workers_tests.LIHKGThreadsWorkQueueTests import *

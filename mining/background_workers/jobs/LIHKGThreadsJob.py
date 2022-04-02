@@ -1,7 +1,7 @@
 """
 Concrete class of describing a LIHKG thread job.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 
 @dataclass
@@ -13,7 +13,7 @@ class LIHKGThreadsJob:
     LIHKGThreadId   : int
     page            : int
     isFullFetch     : bool
-    CreateTime      : datetime = datetime.utcnow()
+    CreateTime      : datetime = field(default_factory=datetime.utcnow)
 
     def Serialize(self):
         '''
