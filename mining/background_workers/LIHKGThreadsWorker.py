@@ -34,6 +34,7 @@ class LIHKGThreadsWorker(BaseWorker):
                 LIHKGThreadId = LIHKGThreadsjob.LIHKGThreadId
                 page = LIHKGThreadsjob.page
                 isFullFetch = LIHKGThreadsjob.isFullFetch
+                createTime = LIHKGThreadsjob.CreateTime
 
                 with self._app.app_context():
 
@@ -48,9 +49,12 @@ class LIHKGThreadsWorker(BaseWorker):
 
                     # else -> fetch only one page
                     else:
+                        # for fetch one-page request, inject the createTime of the job so that failed jobs
+                        # are queued with createTime = first time they are ever created.
                         lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(
                             LIHKGThreadId,
-                            page
+                            page,
+                            createTime
                         )
 
                 self._logger.debug(f"Job {LIHKGThreadsjob} finished")
