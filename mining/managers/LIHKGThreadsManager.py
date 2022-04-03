@@ -149,7 +149,7 @@ class LIHKGThreadsManager(BaseManager):
 
         jobs = self._lihkgThreadsHelper.ConvertToJobs(lihkg_category_response)
         self._logger.debug(f"Received {len(jobs)} jobs")
-        self._logger.debug(f"LIHKGThreadIds of the jobs: {','.join(job.LIHKGThreadId for job in jobs)}")
+        self._logger.debug(f"LIHKGThreadIds of the jobs: {','.join(str(job.LIHKGThreadId) for job in jobs)}")
 
         for job in jobs:
             LIHKGThreadsWORKQUEUE.Put(job)
