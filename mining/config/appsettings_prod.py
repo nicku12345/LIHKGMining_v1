@@ -11,6 +11,7 @@ from mining.config.options.BaseWorkerOptions import BaseWorkerOptions
 APPSETTINGS = Appsettings(
     SQLALCHEMY_DATABASE_URI=PROD_CONNECTION_STRING,
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
+    SQLALCHEMY_ECHO=False,
     IS_TEST=False,
     LIHKGThreadsManagerOptions=LIHKGThreadsManagerOptions(SleepTime=3, MaxFailureCount=3),
     PlaywrightHelperOptions=PlaywrightHelperOptions(TimeoutMSLimit=60000),

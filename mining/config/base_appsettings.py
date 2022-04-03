@@ -21,6 +21,7 @@ class Appsettings:
     # General settings
     SQLALCHEMY_DATABASE_URI         : str
     SQLALCHEMY_TRACK_MODIFICATIONS  : bool
+    SQLALCHEMY_ECHO                 : bool = False
     LOG_PATH                        : str = "./mining/data/logs/flask.log"
     IS_TEST                         : bool = False
     ENVIRONMENT                     : str = "DEV"
@@ -47,6 +48,7 @@ class Appsettings:
         '''
         app.config["SQLALCHEMY_DATABASE_URI"] = self.SQLALCHEMY_DATABASE_URI
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.SQLALCHEMY_TRACK_MODIFICATIONS
+        app.config["SQLALCHEMY_ECHO"] = self.SQLALCHEMY_ECHO
         app.config["IS_TEST"] = self.IS_TEST
         app.config["ENVIRONMENT"] = self.ENVIRONMENT
 
