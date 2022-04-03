@@ -24,7 +24,7 @@ class Message(db.Model):
     RetrievedDate = \
         db.Column(db.DateTime, server_default=func.now(), nullable=False, onupdate=func.now())
 
-    User = db.relation("User")
+    User = db.relationship("User", lazy="joined")
 
     __table_args__ = (Index("Messages_UserUserId_ThreadThreadId", "User_UserId", "Thread_ThreadId"),)
 

@@ -28,8 +28,8 @@ class Thread(db.Model):
 
     __table_args__ = (Index("Threads_UserUserId_LIHKGThreadId", "User_UserId", "LIHKGThreadId"),)
 
-    User = db.relationship("User")
-    Messages = db.relationship("Message")
+    User = db.relationship("User", lazy="joined")
+    Messages = db.relationship("Message", uselist=True, lazy="joined")
 
 
     def Update(self, thread: Thread):
