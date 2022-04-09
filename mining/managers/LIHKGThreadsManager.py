@@ -52,7 +52,7 @@ class LIHKGThreadsManager(BaseManager):
             self,
             LIHKGThreadId: int,
             page: int,
-            createTime: datetime = datetime.utcnow()):
+            createTime: datetime = None):
         '''
         Performs a fetch for one LIHKG thread page with retrials.
 
@@ -63,6 +63,9 @@ class LIHKGThreadsManager(BaseManager):
             This parameter should be used by LIHKGThreadsWorker.
         :return: (success: bool, number_messages_fetched: int)
         '''
+        if createTime is None:
+            createTime = datetime.utcnow()
+
         failure_cnt = 0
         while True:
             try:
