@@ -52,3 +52,12 @@ class UsersManager(BaseManager):
             raise BadRequest(err_msg) from e
         else:
             self._logger.info(f"User {user} added!")
+
+    def QueryAllMessagesFromUserByLIHKGUserId(self, LIHKGUserId: int):
+        '''
+        Query all the messages for a specific LIHKGUserId
+
+        :param LIHKGUserId: The LIHKGUserId to query
+        :return: list of (message, thread) pairs
+        '''
+        return self._usersRepo.QueryAllMessagesFromUserByLIHKGUserId(LIHKGUserId=LIHKGUserId)

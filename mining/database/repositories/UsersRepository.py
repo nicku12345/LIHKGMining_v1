@@ -1,9 +1,12 @@
 """
 Concrete repository for user related functionalities.
 """
+from sqlalchemy.orm import joinedload, noload
 from typing import List
 from mining.database.repositories.BaseRepository import BaseRepository
 from mining.database.models.User import User
+from mining.database.models.Message import Message
+from mining.database.models.Thread import Thread
 
 class UsersRepository(BaseRepository):
     """
@@ -50,3 +53,22 @@ class UsersRepository(BaseRepository):
         Calls the SQLAlchemy db.session.merge method and commits the changes
         '''
         self.MergeAndSave(user)
+
+    def QueryAllMessagesFromUserByLIHKGUserId(self, LIHKGUserId: int):
+        '''
+        Query all the messages for a specific LIHKGUserId
+
+        :param LIHKGUserId: The LIHKGUserId to query
+        :return: list of (message, thread) pairs
+        '''
+
+        msgThread_pairs = self._db.session.query(Message, Thread)\
+                    .join(User, User.UserId == Message.User_UserId)\
+                    .filter(User.LIHKGUserId == LIHKGUserId)\
+                    .filter(Message.Thread_ThreadId == Thread.ThreadId)\
+                    .options(
+                        noload(Thread.Messages)
+                    )\
+                    .all()
+
+        return msgThread_pairs

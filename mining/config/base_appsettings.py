@@ -91,17 +91,5 @@ class Appsettings:
         # add this handler only if it is not test
         werkzeug_logger.addHandler(stream_handler)
 
-        # Save log to files only if it is not a test environment
-        if not self.IS_TEST:
-            # common file handler
-            file_handler = TimedRotatingFileHandler(self.LOG_PATH, when="midnight", interval=1, encoding="utf8")
-
-            file_handler.setLevel(logging.DEBUG)
-            file_handler.suffix = "%Y%m%d"
-
-            file_handler.setFormatter(flask_app_formatter)
-
-            flask_app_logger.addHandler(file_handler)
-
         coloredlogs.install(logger=flask_app_logger, level=logging.DEBUG)
         coloredlogs.install(logger=werkzeug_logger, level=logging.DEBUG)
