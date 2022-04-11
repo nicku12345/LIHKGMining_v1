@@ -21,11 +21,11 @@ class ThreadsManager(BaseManager):
         self._threadsRepo = ThreadsRepository()
         self._usersManager = UsersManager()
 
-    def QueryAllThreads(self):
+    def QueryAllThreads(self, skip_messages=False):
         '''
         Returns a list of all threads in the attached Threads table.
         '''
-        return self._threadsRepo.QueryAllThreads()
+        return self._threadsRepo.QueryAllThreads(skip_messages=skip_messages)
 
     def QueryThreadByLIHKGThreadId(self, LIHKGThreadId):
         '''

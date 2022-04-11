@@ -21,7 +21,7 @@ class ThreadsController:
         '''
         threadsManager = ThreadsManager()
 
-        allThreads = threadsManager.QueryAllThreads()
+        allThreads = threadsManager.QueryAllThreads(skip_messages=True)
         res = [thread.Serialize() for thread in allThreads]
 
         return Response(json.dumps(res), mimetype="application/json")
