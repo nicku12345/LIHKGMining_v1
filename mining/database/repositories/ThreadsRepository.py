@@ -1,7 +1,7 @@
 """
 Concrete repository for thread entities related functionalities.
 """
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, noload
 from mining.database.repositories.BaseRepository import BaseRepository
 from mining.database.models.Thread import Thread
 from mining.database.models.Message import Message
@@ -11,13 +11,18 @@ class ThreadsRepository(BaseRepository):
     Concrete repository for thread entities related functionalities.
     """
 
-    def QueryAllThreads(self):
+    def QueryAllThreads(self, skip_messages=False):
         '''
         Returns a list of all threads in the attached Threads table.
         '''
-        return self._db.session.query(Thread).options(
-            joinedload(Thread.Messages).joinedload(Message.User)
-        ).all()
+        if not skip_messages:
+            return self._db.session.query(Thread).options(
+                joinedload(Thread.Messages).joinedload(Message.User)
+            ).all()
+        else:
+            return self._db.session.query(Thread).options(
+                noload(Thread.Messages)
+            ).all()
 
     def QueryThreadByLIHKGThreadId(self, LIHKGThreadId: int):
         '''
