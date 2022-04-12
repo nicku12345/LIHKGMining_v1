@@ -16,6 +16,6 @@ APPSETTINGS = Appsettings(
     IS_TEST=False,
     LIHKGThreadsManagerOptions=LIHKGThreadsManagerOptions(SleepTime=3, MaxFailureCount=3),
     PlaywrightHelperOptions=PlaywrightHelperOptions(TimeoutMSLimit=60000),
-    LIHKGThreadsWorkerOptions=LIHKGThreadsWorkerOptions(IsAutoFetchLIHKGThreadJobs=False),
+    LIHKGThreadsWorkerOptions=LIHKGThreadsWorkerOptions(IsAutoFetchLIHKGThreadJobs=True),
     BaseWorkerOptions=BaseWorkerOptions(SleepTime=5)
 )
