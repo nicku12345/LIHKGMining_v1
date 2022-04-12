@@ -2,7 +2,7 @@
 env
 htmlcov
 __pycache__
-ConnectionStrings.py
 flask.log.*
 .coverage
 *.db
+.env_secret
