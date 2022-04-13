@@ -5,11 +5,14 @@ import queue
 from datetime import datetime
 import logging
 from mining.background_workers.jobs import LIHKGThreadsJob
+from mining.config.options.LIHKGThreadsWorkQueueOptions import LIHKGThreadsWorkQueueOptions
 
 class LIHKGThreadsWorkQueue:
     """
     Work queue class for background LIHKG thread workers.
     """
+
+    _options: LIHKGThreadsWorkQueueOptions = None
 
     def __init__(self):
         self._queue = queue.Queue()
@@ -52,7 +55,7 @@ class LIHKGThreadsWorkQueue:
         now = datetime.utcnow()
         while not self._queue.empty():
             first_job = self._queue.queue[0]
-            if (now - first_job.CreateTime).total_seconds() >= 12 * 60 * 60:
+            if (now - first_job.CreateTime).total_seconds() >= self._options.DiscardJobTimeLimit:
                 first_job = self._queue.get()
                 self._logger.warning(f"Discarding job {first_job} for being too old.")
             else:

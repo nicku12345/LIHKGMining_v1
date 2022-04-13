@@ -10,6 +10,7 @@ from mining.config.options.LIHKGThreadsManagerOptions import LIHKGThreadsManager
 from mining.config.options.PlaywrightHelperOptions import PlaywrightHelperOptions
 from mining.config.options.LIHKGThreadsWorkerOptions import LIHKGThreadsWorkerOptions
 from mining.config.options.BaseWorkerOptions import BaseWorkerOptions
+from mining.config.options.LIHKGThreadsWorkQueueOptions import LIHKGThreadsWorkQueueOptions
 
 
 @dataclass
@@ -37,6 +38,9 @@ class Appsettings:
 
     # Settings on BaseWorker
     BaseWorkerOptions               : BaseWorkerOptions = None
+
+    # Settings on LIHKGThreadsWorkQueue
+    LIHKGThreadsWorkQueueOptions    : LIHKGThreadsWorkQueueOptions = None
 
     def ApplySettings(self, app: Flask):
         '''
