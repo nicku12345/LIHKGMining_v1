@@ -14,4 +14,5 @@ def BackgroundWorkersInitApp(app, appsettings = None):
     appsettings.LIHKGThreadsWorkQueueOptions.ApplyOptions(LIHKGThreadsWorkQueue)
 
     lihkgThreadsWorker.SetApp(app)
-    lihkgThreadsWorker.Wakeup()
+    if not appsettings.IS_TEST:
+        lihkgThreadsWorker.Wakeup()

@@ -4,6 +4,7 @@ Base class of a test case
 from flask_testing import TestCase
 
 from mining.app import LIHKGMiningApp
+from mining.background_workers.LIHKGThreadsWorkQueue import LIHKGThreadsWORKQUEUE
 from mining.database import db
 from mining.database.models.User import User
 from mining.database.models.Thread import Thread
@@ -57,6 +58,9 @@ class BaseTestCase(TestCase):
     def tearDown(self):
         self._db.session.remove()
         self.CleanDatabase()
+
+        # discard all work added to the work queue
+        LIHKGThreadsWORKQUEUE.ClearAllWork()
 
     def CleanDatabase(self):
         '''
@@ -150,3 +154,9 @@ class BaseTestCase(TestCase):
             self._db.session.add(t)
 
         self._db.session.commit()
+
+    def GetTestClient(self):
+        """
+        Get a test client of the flask app. Used for controller tests.
+        """
+        return self._app.test_client()
