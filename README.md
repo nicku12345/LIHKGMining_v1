@@ -1,5 +1,6 @@
 [![Pylint](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/pylint.yml/badge.svg)](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/pylint.yml) 
 [![Unit Tests](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/nicku12345/LIHKGMining_v1/actions/workflows/unit-tests.yml)
+[![codecov](https://codecov.io/gh/nicku12345/LIHKGMining_v1/branch/master/graph/badge.svg?token=5PNRZ4CVS0)](https://codecov.io/gh/nicku12345/LIHKGMining_v1)
 
 # LIHKG Mining web application
 
