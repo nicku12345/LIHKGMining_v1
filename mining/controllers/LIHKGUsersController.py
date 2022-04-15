@@ -5,6 +5,7 @@ import json
 
 from flask import Blueprint, request, Response
 from mining.managers.UsersManager import UsersManager
+from mining.util.Exceptions import *
 from mining.controllers.request_models.LIHKGUsersRequestModels import *
 
 
@@ -17,14 +18,17 @@ class LIHKGUsersController:
 
     @staticmethod
     @blueprint.route("/messages/query/all", methods=["POST"])
-    def QueryAllMessagesByLIHKGThreads():
+    def QueryAllMessagesByLIHKGUserId():
         '''
         Query all messages for a specific LIHKG User id
         :return:
         '''
 
         body = request.json
-        requestModel = QueryAllMessageByLIHKGUserIdRequest.ConvertFromRequestBody(body)
+        try:
+            requestModel = QueryAllMessageByLIHKGUserIdRequest.ConvertFromRequestBody(body)
+        except BadRequest as e:
+            return Response(str(e), 400)
 
         userMgr = UsersManager()
         msgThreads_pairs = userMgr.QueryAllMessagesFromUserByLIHKGUserId(requestModel.LIHKGUserId)

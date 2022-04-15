@@ -25,52 +25,58 @@ class LIHKGThreadsWorker(BaseWorker):
         '''
 
         while True:
-            if not self._queue.IsEmpty():
-                self._logger.debug("Jobs polled LIHKGThreads worker...")
-
-                LIHKGThreadsjob = self._queue.Get()
-                self._logger.debug(f"LIHKGThreads worker received job {LIHKGThreadsjob}")
-
-                LIHKGThreadId = LIHKGThreadsjob.LIHKGThreadId
-                page = LIHKGThreadsjob.page
-                isFullFetch = LIHKGThreadsjob.isFullFetch
-                createTime = LIHKGThreadsjob.CreateTime
-
-                with self._app.app_context():
-
-                    lihkgThreadsManager = LIHKGThreadsManager()
-
-                    # full fetch -> fetch all pages of the thread
-                    if isFullFetch:
-                        lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(
-                            LIHKGThreadId,
-                            page
-                        )
-
-                    # else -> fetch only one page
-                    else:
-                        # for fetch one-page request, inject the createTime of the job so that failed jobs
-                        # are queued with createTime = first time they are ever created.
-                        lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(
-                            LIHKGThreadId,
-                            page,
-                            createTime
-                        )
-
-                self._logger.debug(f"Job {LIHKGThreadsjob} finished")
-            elif self._options.IsAutoFetchLIHKGThreadJobs:
-                self._logger.debug("No job polled from LIHKG thread worker. Trying to fetch for jobs...")
-
-                with self._app.app_context():
-
-                    lihkgThreadsManager = LIHKGThreadsManager()
-                    try:
-                        num_jobs_added = lihkgThreadsManager.FetchAndQueueLIHKGThreadJobs()
-                        self._logger.info(f"Queued {num_jobs_added} jobs.")
-                    except Exception as e:
-                        self._logger.error(f"No jobs fetched. Reason: {e}")
-
+            self.ProcessLIHKGThreadsWorkQueue()
             time.sleep(self._baseOptions.SleepTime)
+
+    def ProcessLIHKGThreadsWorkQueue(self):
+        """
+        Explicit implementation of the work carried out by the LIHKG threads worker.
+        """
+        if not self._queue.IsEmpty():
+            self._logger.debug("Jobs polled LIHKGThreads worker...")
+
+            LIHKGThreadsjob = self._queue.Get()
+            self._logger.debug(f"LIHKGThreads worker received job {LIHKGThreadsjob}")
+
+            LIHKGThreadId = LIHKGThreadsjob.LIHKGThreadId
+            page = LIHKGThreadsjob.page
+            isFullFetch = LIHKGThreadsjob.isFullFetch
+            createTime = LIHKGThreadsjob.CreateTime
+
+            with self._app.app_context():
+
+                lihkgThreadsManager = LIHKGThreadsManager()
+
+                # full fetch -> fetch all pages of the thread
+                if isFullFetch:
+                    lihkgThreadsManager.FullFetchOneThreadByLIHKGThreadIdWithRetry(
+                        LIHKGThreadId,
+                        page
+                    )
+
+                # else -> fetch only one page
+                else:
+                    # for fetch one-page request, inject the createTime of the job so that failed jobs
+                    # are queued with createTime = first time they are ever created.
+                    lihkgThreadsManager.FetchOneThreadPageByLIHKGThreadIdWithRetry(
+                        LIHKGThreadId,
+                        page,
+                        createTime
+                    )
+
+            self._logger.debug(f"Job {LIHKGThreadsjob} finished")
+        elif self._options.IsAutoFetchLIHKGThreadJobs:
+            self._logger.debug("No job polled from LIHKG thread worker. Trying to fetch for jobs...")
+
+            with self._app.app_context():
+
+                lihkgThreadsManager = LIHKGThreadsManager()
+                try:
+                    num_jobs_added = lihkgThreadsManager.FetchAndQueueLIHKGThreadJobs(123)
+                    self._logger.info(f"Queued {num_jobs_added} jobs.")
+                except Exception as e:
+                    self._logger.error(f"No jobs fetched. Reason: {e}")
+
 
 '''
 Singleton pattern of the background worker.

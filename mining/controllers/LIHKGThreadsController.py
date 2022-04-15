@@ -32,7 +32,10 @@ class LIHKGThreadsController:
         }
         '''
         body = request.json
-        requestModel = FetchOneThreadPageRequest.ConvertFromRequestBody(body)
+        try:
+            requestModel = FetchOneThreadPageRequest.ConvertFromRequestBody(body)
+        except BadRequest as e:
+            return Response(str(e), status=400)
 
         job = LIHKGThreadsJob(
             LIHKGThreadId=requestModel.LIHKGThreadId,
@@ -62,7 +65,10 @@ class LIHKGThreadsController:
         }
         '''
         body = request.json
-        requestModel = FullFetchThreadRequest.ConvertFromRequestBody(body)
+        try:
+            requestModel = FullFetchThreadRequest.ConvertFromRequestBody(body)
+        except BadRequest as e:
+            return Response(str(e), 400)
 
         job = LIHKGThreadsJob(
             LIHKGThreadId=requestModel.LIHKGThreadId,
