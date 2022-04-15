@@ -35,7 +35,7 @@ class FullFetchThreadRequest:
             raise BadRequest(f"Mapping to FullFetchThreadRequest failed. Error: {e}") from e
 
         if not req.IsValid():
-            raise BadRequest("Some required fields are None.") from None
+            raise BadRequest("Some required fields have incorrect data type.") from None
 
         return req
 
@@ -70,6 +70,6 @@ class FetchOneThreadPageRequest:
             raise BadRequest(f"Mapping to FetchOneThreadPageRequest failed. Error: {e}") from e
 
         if not req.IsValid():
-            raise BadRequest("Some required fields are None.") from None
+            raise BadRequest("Some required fields have incorrect data type.") from None
 
         return req
