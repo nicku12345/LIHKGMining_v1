@@ -1,3 +1,5 @@
+# This workflow runs a pylint on the repository
+# See .pylintrc file for customization
 name: Pylint
 
 on: [push]
