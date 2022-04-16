@@ -1,7 +1,7 @@
-# Your workflow name.
+# This is a manual workflow for Heroku deployment (Dev env)
 name: Heroku deployment - Dev
 
-# Run workflow on every push to master branch.
+# Run workflow on demand
 on:
   workflow_dispatch
 
