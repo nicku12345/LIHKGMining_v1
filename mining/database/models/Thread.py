@@ -2,6 +2,7 @@
 Entity model of a thread.
 """
 from __future__ import annotations
+from datetime import datetime
 from sqlalchemy.sql import func
 from sqlalchemy import Index
 from mining.database import db
@@ -76,8 +77,8 @@ class Thread(db.Model):
             "DislikeCount": self.DislikeCount,
             "User": self.User.Serialize() if self.User is not None else None,
             "Messages": [msg.Serialize() for msg in self.Messages if msg is not None],
-            "CreateDate": self.CreateDate,
-            "LastUpdate": self.LastUpdate,
+            "CreateDate": str(datetime.fromtimestamp(self.CreateDate)),
+            "LastUpdate": str(datetime.fromtimestamp(self.LastUpdate)),
         }
 
     def Copy(self):

@@ -1,7 +1,7 @@
 from mining.tests.BaseTestCase import BaseTestCase
 from mining.database.repositories.UsersRepository import UsersRepository
 from mining.database.models.User import User
-import datetime
+from datetime import datetime
 
 class UserRepr_IfContainsNonEnglishCharacters_CanDisplayProperly(BaseTestCase):
     def test(self):
@@ -61,5 +61,5 @@ class UserSerialize_Test(BaseTestCase):
         self.assertTrue(res["LIHKGUserId"] == 98)
         self.assertTrue(res["Nickname"] == "test user")
         self.assertTrue(res["Gender"] == "M")
-        self.assertTrue(res["CreateDate"] == 12)
-        self.assertTrue(res["LastUpdate"] == 12)
+        self.assertTrue(res["CreateDate"] == str(datetime.fromtimestamp(12)))
+        self.assertTrue(res["LastUpdate"] == str(datetime.fromtimestamp(12)))

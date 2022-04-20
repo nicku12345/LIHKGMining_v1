@@ -2,6 +2,7 @@
 Entity model of a user.
 """
 from __future__ import annotations
+from datetime import datetime
 from sqlalchemy.sql import func
 from sqlalchemy import Index
 from mining.database import db
@@ -54,8 +55,8 @@ class User(db.Model):
             "LIHKGUserId": self.LIHKGUserId,
             "Nickname": self.Nickname,
             "Gender": self.Gender,
-            "CreateDate": self.CreateDate,
-            "LastUpdate": self.LastUpdate,
+            "CreateDate": str(datetime.fromtimestamp(self.CreateDate)),
+            "LastUpdate": str(datetime.fromtimestamp(self.LastUpdate)),
         }
 
     def Copy(self):

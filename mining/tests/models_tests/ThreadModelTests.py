@@ -1,5 +1,6 @@
 from mining.tests.BaseTestCase import BaseTestCase
 from mining.database.models.Thread import Thread
+from datetime import datetime
 
 
 class ThreadSerialize_Test(BaseTestCase):
@@ -20,5 +21,5 @@ class ThreadSerialize_Test(BaseTestCase):
         self.assertTrue(res["NumberOfUniReplies"] == 1)
         self.assertTrue(res["LikeCount"] == 22)
         self.assertTrue(res["DislikeCount"] == 0)
-        self.assertTrue(res["CreateDate"] == 82)
-        self.assertTrue(res["LastUpdate"] == 90)
+        self.assertTrue(res["CreateDate"] == str(datetime.fromtimestamp(82)))
+        self.assertTrue(res["LastUpdate"] == str(datetime.fromtimestamp(90)))
