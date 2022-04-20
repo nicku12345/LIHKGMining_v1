@@ -72,7 +72,7 @@ class LIHKGThreadsWorker(BaseWorker):
 
                 lihkgThreadsManager = LIHKGThreadsManager()
                 try:
-                    num_jobs_added = lihkgThreadsManager.FetchAndQueueLIHKGThreadJobs(123)
+                    num_jobs_added = lihkgThreadsManager.FetchAndQueueLIHKGThreadJobs()
                     self._logger.info(f"Queued {num_jobs_added} jobs.")
                 except Exception as e:
                     self._logger.error(f"No jobs fetched. Reason: {e}")

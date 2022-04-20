@@ -1,3 +1,4 @@
+from datetime import datetime
 from mining.tests.BaseTestCase import BaseTestCase
 from mining.database.models.Message import Message
 
@@ -16,5 +17,5 @@ class ModelSerialize_Test(BaseTestCase):
         self.assertTrue(res["DislikeCount"] == 10)
         self.assertTrue(res["Message"] == "test message")
         self.assertTrue(res["MessageNumber"] == 0)
-        self.assertTrue(res["CreateDate"] == 82)
-        self.assertTrue(res["LastUpdate"] == 90)
+        self.assertTrue(res["CreateDate"] == str(datetime.fromtimestamp(82)))
+        self.assertTrue(res["LastUpdate"] == str(datetime.fromtimestamp(90)))
