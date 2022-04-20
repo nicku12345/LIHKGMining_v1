@@ -36,4 +36,7 @@ class LIHKGUsersController:
         # representation of json response
         res = [{"Message": msg.Serialize(), "Thread": t.Serialize()} for msg,t in msgThreads_pairs]
 
+        # return the result with descending CreateDates
+        res.sort(key = lambda o: o["Message"]["CreateDate"], reverse = True)
+
         return Response(json.dumps(res), mimetype="application/json")

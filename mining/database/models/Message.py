@@ -2,6 +2,7 @@
 Entity model: Message
 """
 from __future__ import annotations
+from datetime import datetime
 from sqlalchemy.sql import func
 from sqlalchemy import Index
 from mining.database import db
@@ -57,8 +58,8 @@ class Message(db.Model):
             "DislikeCount": self.DislikeCount,
             "MessageNumber": self.MessageNumber,
             "User": self.User.Serialize() if self.User is not None else None,
-            "CreateDate": self.CreateDate,
-            "LastUpdate": self.LastUpdate
+            "CreateDate": str(datetime.fromtimestamp(self.CreateDate)),
+            "LastUpdate": str(datetime.fromtimestamp(self.LastUpdate))
         }
 
     def Copy(self):
