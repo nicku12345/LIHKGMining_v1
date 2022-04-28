@@ -70,7 +70,7 @@ class LIHKGThreadsManagerOptions:
         LIHKGCategoryOption(CategoryId=34, ToFetch=True),	# 直播台
         LIHKGCategoryOption(CategoryId=28, ToFetch=True),	# 站務台
         LIHKGCategoryOption(CategoryId=29, ToFetch=False),	# 成人台
-        LIHKGCategoryOption(CategoryId=32, ToFetch=True)	# 黑　洞
+        LIHKGCategoryOption(CategoryId=32, ToFetch=False)	# 黑　洞
     ])
 
     def ApplyOptions(self, LIHKGThreadsManagerCls):
