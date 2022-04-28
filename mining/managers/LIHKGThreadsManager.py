@@ -134,27 +134,45 @@ class LIHKGThreadsManager(BaseManager):
 
     def FetchAndQueueLIHKGThreadJobs(self):
         '''
-        Fetch the threads listing on LIHKG Category 1 page.
+        Fetch the threads for categories specified in the options.
 
         Add the jobs to work queue.
         '''
 
-        website_url, target_api_url_pref = \
-            self._lihkgThreadsHelper.GetLIHKGThreadJobWebsiteAndApiUrlPrefix()
+        seenLIHKGThreadIds = set()
 
-        self._logger.info("Trying to fetch for LIHKG thread jobs")
-        lihkg_category_response = \
-            self._playwrightHelper.FetchTargetApiByVisitingWebsite(website_url, target_api_url_pref)
+        for category in self._options.LIHKGCategoryOptions:
+            if not category.ToFetch:
+                continue
 
-        if not self._lihkgThreadsHelper.IsResponseSuccess(lihkg_category_response):
-            self._logger.warning("Fetch job failed!")
-            return 0
+            categoryId = category.CategoryId
 
-        jobs = self._lihkgThreadsHelper.ConvertToJobs(lihkg_category_response)
-        self._logger.debug(f"Received {len(jobs)} jobs")
-        self._logger.debug(f"LIHKGThreadIds of the jobs: {','.join(str(job.LIHKGThreadId) for job in jobs)}")
+            website_url, target_api_url_pref = \
+                self._lihkgThreadsHelper.GetLIHKGThreadJobWebsiteAndApiUrlPrefix(category=categoryId)
 
-        for job in jobs:
+            self._logger.info(f"Trying to fetch for LIHKG thread jobs for category {categoryId}.")
+            lihkg_category_response = \
+                self._playwrightHelper.FetchTargetApiByVisitingWebsite(website_url, target_api_url_pref)
+
+            if not self._lihkgThreadsHelper.IsResponseSuccess(lihkg_category_response):
+                self._logger.warning(f"Job fetch on category {categoryId} failed!")
+                continue
+
+            lihkgThreaIds = self._lihkgThreadsHelper.ConvertToLIHKGThreadIds(lihkg_category_response)
+            self._logger.debug(f"Received {len(lihkgThreaIds)} jobs")
+            self._logger.debug(f"LIHKGThreadIds of the jobs: {','.join(str(x) for x in lihkgThreaIds)}")
+
+            for lihkgThreadId in lihkgThreaIds:
+                seenLIHKGThreadIds.add(lihkgThreadId)
+
+        # We want to process smaller LIHKG thread ids first
+        # Heuristics: newer threads may have rapid changes, so better process them with latter priority
+        for lihkgThreadId in sorted(seenLIHKGThreadIds):
+            job = LIHKGThreadsJob(
+                LIHKGThreadId=lihkgThreadId,
+                page=1,
+                isFullFetch=True
+            )
             LIHKGThreadsWORKQUEUE.Put(job)
 
-        return len(jobs)
+        return len(seenLIHKGThreadIds)

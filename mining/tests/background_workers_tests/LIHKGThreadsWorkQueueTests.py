@@ -28,6 +28,26 @@ class WorkQueueIfPutAndGet_IfHasOnlyOneJob_ShouldGetBackTheJob(BaseTestCase):
         self.assertTrue(res.page == 5)
         self.assertTrue(res.isFullFetch == False)
 
+# This test is important in the sense that we add jobs with smaller LIHKGThreadIds
+# Please check FetchAndQueueLIHKGThreadJobs for the strategy
+class WorkQueueGetMethod_ShouldBeFIFO(BaseTestCase):
+    def test(self):
+        # arrange
+        q = LIHKGThreadsWorkQueue()
+        job1 = LIHKGThreadsJob(LIHKGThreadId=1, page=5, isFullFetch=False)
+        job2 = LIHKGThreadsJob(LIHKGThreadId=2, page=5, isFullFetch=False)
+
+        # act
+        q.Put(job1)
+        q.Put(job2)
+
+        res1 = q.Get()
+        res2 = q.Get()
+
+        # assert
+        self.assertTrue(res1.LIHKGThreadId == 1)
+        self.assertTrue(res2.LIHKGThreadId == 2)
+
 class WorkQueueGetMethod_IfQueueIsEmpty_ExpectException(BaseTestCase):
     def test(self):
         # arrange
