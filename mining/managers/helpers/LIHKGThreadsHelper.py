@@ -21,7 +21,7 @@ class LIHKGThreadsHelper(BaseHelper):
         a given LIHKG thread id and page number.
         '''
         website_url = f"https://lihkg.com/thread/{LIHKGThreadId}/page/{page}"
-        target_api_url_pref = f"https://lihkg.com/api_v2/thread/{LIHKGThreadId}/page/{page}"
+        target_api_url_pref = "https://lihkg.com/api_v2/thread/"
         return website_url, target_api_url_pref
 
     def GetLIHKGThreadJobWebsiteAndApiUrlPrefix(self, category: int = 1):
@@ -33,7 +33,7 @@ class LIHKGThreadsHelper(BaseHelper):
         other categories.
         '''
         website_url = f"https://lihkg.com/category/{category}"
-        target_api_url_pref = f"https://lihkg.com/api_v2/thread/latest?cat_id={category}"
+        target_api_url_pref = "https://lihkg.com/api_v2/thread/"
         return website_url, target_api_url_pref
 
     def IsResponseSuccess(self, lihkg_thread: Dict):
@@ -124,20 +124,13 @@ class LIHKGThreadsHelper(BaseHelper):
 
         return thread
 
-    def ConvertToJobs(self, lihkg_category_response: Dict):
+    def ConvertToLIHKGThreadIds(self, lihkg_category_response: Dict):
         '''
-        Converts the fetched response to a list of LIHKGThreadJobs.
+        Converts the fetched response to a list of LIHKGThreadIds.
         '''
-        jobs = []
+        lihkgThreadIds = []
 
         for thread in lihkg_category_response["response"]["items"]:
-            LIHKGThreadId = thread["thread_id"]
-            job = LIHKGThreadsJob(
-                LIHKGThreadId=LIHKGThreadId,
-                page=1,
-                isFullFetch=True
-            )
+            lihkgThreadIds.append(thread["thread_id"])
 
-            jobs.append(job)
-
-        return jobs
+        return lihkgThreadIds
