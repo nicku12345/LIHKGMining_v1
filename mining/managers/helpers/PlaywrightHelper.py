@@ -55,7 +55,8 @@ class PlaywrightHelper(BaseHelper):
 
             if res.request.url.startswith(target_api_uri_prefix):
                 if response is not None:
-                    raise ExternalApiIsNotUniqueException(f"Found multiple APIs having {target_api_uri_prefix} as prefix")
+                    self._logger.warning(f"Found multiple APIs having {target_api_uri_prefix} as prefix")
+                    return
 
                 if not res.ok:
                     self._logger.warning(f"External API {res.request.url} failed.")
