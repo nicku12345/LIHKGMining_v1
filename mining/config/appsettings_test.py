@@ -18,5 +18,5 @@ APPSETTINGS = Appsettings(
     PlaywrightHelperOptions=PlaywrightHelperOptions(TimeoutMSLimit=60000),
     LIHKGThreadsWorkerOptions=LIHKGThreadsWorkerOptions(IsAutoFetchLIHKGThreadJobs=False),
     BaseWorkerOptions = BaseWorkerOptions(SleepTime=5),
-    LIHKGThreadsWorkQueueOptions=LIHKGThreadsWorkQueueOptions(DiscardJobTimeLimit=86400)
+    LIHKGThreadsWorkQueueOptions=LIHKGThreadsWorkQueueOptions(DiscardJobTimeLimit=172800)
 )
